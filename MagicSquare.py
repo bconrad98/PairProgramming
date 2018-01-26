@@ -1,4 +1,15 @@
-def MagicSquareGen(n):
+#  File: MagicSquare.py
+#  Description: Create an accurate magic square of desired size
+#  Student Name: Matthew Frangos
+#  Student UT EID: msf955
+#  Partner Name: Braeden Conrad
+#  Partner UT EID: bsc875
+#  Course Name: CS 303E
+#  Unique Number: 51335
+#  Date Created: 1/23/2018
+#  Date Last Modified: 1/25/2018
+
+def make_square(n):
     # Generate an empty 2D Matrix
     square = []
     for i in range (n):
@@ -51,12 +62,67 @@ def MagicSquareGen(n):
 
     return square
 
+def print_square(square):
+	length=len(square)
+	formatable=length-2
+	print()
+	print("Here is a", length, "x", length, "magic square:")
+	print()
+	for i in range (length):
+		for j in range (length):
+			print ('{:4}'.format(square[i][j]), end="")
+		print()
+	return
+
+def check_square(square):
+	# Check for sum of rows
+	sum=0
+	sum1=0
+	for i in range (len(square)):
+		sum+=square[0][i]
+	for i in range (len(square)):
+		for j in range (len(square)):
+			sum1+=square[i][j]
+		if(sum==sum1):
+			sum1=0
+			continue
+		else:
+			print("Not all rows are equal.")
+	print()
+	print("Sum of row = ", sum)
+	# Check for sum of columns
+	sum=0
+	sum1=0
+	for i in range (len(square)):
+		sum+=square[i][0]
+	for i in range (len(square)):
+		for j in range (len(square)):
+			sum1+=square[j][i]
+		if(sum==sum1):
+			sum1=0
+		else:
+			sum1=0
+			print("Not all columns are equal.")
+			break
+	print("Sum of Column = ", sum)
+	# Check for sum of left to right diagonal
+	sum1=0
+	for i in range (len(square)):
+		sum1+=square[i][i]
+	print("Sum of Diagonal (UL to LR) = ", sum1)
+	# Check for sum of right to left diagonal
+	sum1=0
+	for k in range(len(square)):
+		sum1+=square[k][(len(square)-1-k)]
+	print("Sum of Diagonal (UR to LL) = ", sum1)
+	return
+
 def main():
-    size = int(input("Enter the size of the Matrix: "))
+    size = int(input("Enter the size of the desired magic square: "))
     while (size%2 == 0):
       size = int(input("Enter an odd number: "))
-
-    magic_square = MagicSquareGen(size)
-    print(magic_square)
+    magic_square = make_square(size)
+    print_square(magic_square)
+    check_square(magic_square)
 
 main()
