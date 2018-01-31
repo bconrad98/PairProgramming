@@ -97,20 +97,34 @@ class Rectangle (object):
 
   # determine if another Rectangle is strictly inside this Rectangle
   def rectangle_inside (self, r):
-
+    return (r.ul.x < self.ul.x) and (r.ul.y < self.ul.y) and (r.lr.x < self.lr.x) and (r.lr.y < self.lr.y)
 
   # determine if two Rectangles overlap (non-zero area of overlap)
   def does_intersect (self, other):
+    return not((r.ul.x > self.lr.x) or (r.lr.x < self.ul.x) or (r.lr.y > self.ul.y) or (r.ul.y < self.lr.y))
 
   # determine the smallest rectangle that circumscribes a circle
   # sides of the rectangle are tangents to circle c
   def rect_circumscribe (self, c):
+    ul_x = c.center.x - c.radius
+    ul_y = c.center.y + c.radius
+    lr_x = c.center.x + c.radius
+    lr_y = c.center.y - c.radius
+    return Rectangle(ul_x,ul_y,lr_x,lr_y)
+
+  def get_center (self):
+    return Point((self.lr.x-self.ul.x)/2,(self.ul.y-self.lr.y)/2)
 
   # give string representation of a rectangle
   def __str__ (self):
-
+    return "Rectangle centered at " + str(self.get_center()) + "with length of " + str(self.length()) + "and width of " + str(self.width())
   # determine if two rectangles have the same length and width
   def __eq__ (self, other):
+    tol = 1.0e-16
+    self_center = self.get_center()
+    other_center = other.get_center()
+    distance = abs(self_center.dist(other_center))
+    return (distance < tol) and (abs(self.length()-other.length())) and (abs(self.width()-other.width()))
 
 def main():
   # open the file geom.txt
