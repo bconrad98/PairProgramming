@@ -44,19 +44,26 @@ class Circle (object):
 
   # determine if a circle c intersects this circle (non-zero area of overlap)
   def does_intersect (self, c):
-      distance = self.center.dist(c.center)
-      return distance < (self.radius + c.radius)
+    distance = self.center.dist(c.center)
+    return distance < (self.radius + c.radius)
 
   # determine the smallest circle that circumscribes a rectangle
   # the circle goes through all the vertices of the rectangle
   def circle_circumscribes (self, r):
+    x = (r.ul.x + r.lr.x)/2
+    y = (r.ul.y + r.lr.y)/2
+    center = Point(x,y)
+    radius = center.dist(r.ul)
+    return Circle(radius,x,y)
 
   # string representation of a circle
   def __str__ (self):
+    return "Circle centered at " + str(self.center) + "with a radius of " + str(self.radius)
 
   # test for equality of radius
   def __eq__ (self, other):
     tol = 1.0e-16
+    return (abs(self.radius - other.radius) < tol) and (abs(self.center.dist(other.center) < tol))
 
 class Rectangle (object):
   # constructor
@@ -70,27 +77,27 @@ class Rectangle (object):
 
   # determine length of Rectangle (distance along the x axis)
   def length (self):
-      return self.lr.x - self.ul.x
+    return self.lr.x - self.ul.x
 
   # determine width of Rectangle (distance along the y axis)
   def width (self):
-      return self.ul.y - self.lr.y
+    return self.ul.y - self.lr.y
 
   # determine the perimeter
   def perimeter (self):
-      return 2*(self.width()+self.length())
+    return 2*(self.width()+self.length())
 
   # determine the area
   def area (self):
-      return self.length()*self.width()
+    return self.length()*self.width()
 
   # determine if a point is strictly inside the Rectangle
   def point_inside (self, p):
-      return (p.x > self.ul.x and p.x < self.lr.x) and (p.y > self.lr.y and p.y < self.ul.y)
+    return (p.x > self.ul.x and p.x < self.lr.x) and (p.y > self.lr.y and p.y < self.ul.y)
 
   # determine if another Rectangle is strictly inside this Rectangle
   def rectangle_inside (self, r):
-      
+
 
   # determine if two Rectangles overlap (non-zero area of overlap)
   def does_intersect (self, other):
