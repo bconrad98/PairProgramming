@@ -69,7 +69,7 @@ class Circle (object):
 
   # string representation of a circle
   def __str__ (self):
-    return "Circle centered at " + str(self.center) + " with a radius of " + str(round(self.radius,2))
+    return "Center: " + str(self.center) + " Radius: " + str(round(self.radius,2))
 
   # test for equality of radius
   def __eq__ (self, other):
@@ -128,8 +128,8 @@ class Rectangle (object):
 
   # give string representation of a rectangle
   def __str__ (self):
-    return "Rectangle centered at " + str(self.get_center()) + " with length of " + str(self.length()) + " and width of " + str(self.width())
-  
+    return "UL: " + str(self.ul) + " LR: " + str(self.lr)
+
   # determine if two rectangles have the same length and width
   def __eq__ (self, other):
     tol = 1.0e-16
@@ -160,11 +160,11 @@ def main():
 
   # find the distance between the points P and Q
   print("Distance between P and Q:", round(P.dist(Q),2))
-  
+
   # create two Circle objects C and D
   C=Circle(coordinates[6],coordinates[4],coordinates[5])
   D=Circle(coordinates[9],coordinates[7],coordinates[8])
-  
+
   # print C and D
   print("Circle C:", C)
   print("Circle D:", D)
@@ -202,11 +202,11 @@ def main():
   # create two rectangle objects G and H
   G=Rectangle(coordinates[10],coordinates[11],coordinates[12],coordinates[13])
   H=Rectangle(coordinates[14],coordinates[15],coordinates[16],coordinates[17])
-  
+
   # print the two rectangles G and H
   print("Rectangle G:", G)
   print("Rectangle H:", H)
-  
+
   # determine the length of G (distance along x axis)
   print("Length of G:", G.length())
 
