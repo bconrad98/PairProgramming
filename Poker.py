@@ -77,6 +77,15 @@ class Poker (object):
         hand.append (self.deck.deal())
       self.players.append (hand)
 
+  '''
+  def __str__(self):
+  	string_1=""
+  	list1=[]
+  	for i in range(len(self.players)):
+  		list1=self.players.split()
+  		string_1+= self.players[i].rank
+  	return list1
+'''
   def play (self):
     # sort the hands of each player and print
     for i in range (len(self.players)):
@@ -86,6 +95,16 @@ class Poker (object):
       for card in sortedHand:
         hand = hand + str (card) + ' '
       print ('Player ' + str (i + 1) + " : " + hand)
+    c1=Card(14,"S")
+    c2=Card(13,"S")
+    c3=Card(12,"S")
+    c4=Card(11,"S")
+    c5=Card(10,"S")
+    self.players[5]=[ c1,c2,c3,c4,c5 ]
+    hand=''
+    for card in self.players[5]:
+        hand = hand + str (card) + ' '
+    print ('Player ' + str (6) + " : " + hand)
 
     # determine the each type of hand and print
     print()
