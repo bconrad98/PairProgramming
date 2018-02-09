@@ -143,7 +143,7 @@ class Poker (object):
         h=1
         str_result=("Player "+ str(j+1) + ': ' + 'High Card')
       print (str_result)
-      
+
 
 
     # determine winner and print
@@ -194,7 +194,7 @@ class Poker (object):
   def is_full_house (self, hand):
     full_house1 = True
     full_house2 = True
-    for i in range (len(hand)-2):
+    for i in range (len(hand)-1):
         if (hand[i].rank != hand[i+1].rank and i!=1):
             full_house1 = False
         if (hand[i].rank != hand[i+1].rank and i!=2):
