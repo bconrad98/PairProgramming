@@ -144,7 +144,7 @@ class Poker (object):
         h=1
         str_result=("Player "+ str(j+1) + ': ' + 'High Card')
       print (str_result)
-      
+
 
 
     # determine winner and print
