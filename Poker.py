@@ -10,7 +10,7 @@ class Card (object):
       self.rank = rank
     else:
       self.rank = 12
-    
+
     if (suit in Card.SUITS):
       self.suit = suit
     else:
@@ -124,8 +124,9 @@ class Poker (object):
         h=1
         str_result=("Player "+ str(j+1) + ': ' + 'High Card')
       print (str_result)
+      
 
-        
+
     # determine winner and print
 
 
@@ -141,10 +142,10 @@ class Poker (object):
     rank_order = True
     for i in range (len(hand)):
       rank_order = rank_order and (hand[i].rank == 14 - i)
-    
+
     return (same_suit and rank_order)
 
-  
+
   def is_straight_flush (self, hand):
     same_suit = True
     for i in range (len(hand) - 1):
@@ -156,10 +157,10 @@ class Poker (object):
     rank_order = True
     for i in range (len(hand)-1):
       rank_order = rank_order and (hand[i].rank == (hand[i+1].rank)+1)
-    
+
     return (same_suit and rank_order)
 
-  
+
   def is_four_kind (self, hand):
     same_rank = True
     for i in range (len(hand)-2):
@@ -172,9 +173,16 @@ class Poker (object):
       return same_rank
 
   def is_full_house (self, hand):
-    return False
-    
-  
+    full_house1 = True
+    full_house2 = True
+    for i in range (len(hand)-2):
+        if (hand[i].rank != hand[i+1].rank and i!=1):
+            full_house1 = False
+        if (hand[i].rank != hand[i+1].rank and i!=2):
+            full_house2 = False
+    return full_house1 or full_house2
+
+
   def is_flush (self, hand):
     same_suit = True
     for i in range (len(hand) - 1):
@@ -203,7 +211,7 @@ class Poker (object):
           if(hand[i].rank==hand[i+1].rank):
             return True
     return False
-  
+
   # determine if a hand is one pair
   def is_one_pair (self, hand):
     for i in range (len(hand) - 1):
@@ -211,7 +219,7 @@ class Poker (object):
         return True
     return False
 
-  
+
   def is_high_card (self, hand):
     return True
 

@@ -69,7 +69,7 @@ class Circle (object):
 
   # string representation of a circle
   def __str__ (self):
-    return "Center: " + str(self.center) + " Radius: " + str(round(self.radius,2))
+    return str(self.center) + " : " + str(round(self.radius,2))
 
   # test for equality of radius
   def __eq__ (self, other):
@@ -128,7 +128,7 @@ class Rectangle (object):
 
   # give string representation of a rectangle
   def __str__ (self):
-    return "UL: " + str(self.ul) + " LR: " + str(self.lr)
+    return str(self.ul) + " : " + str(self.lr)
 
   # determine if two rectangles have the same length and width
   def __eq__ (self, other):
