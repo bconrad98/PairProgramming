@@ -95,11 +95,12 @@ class Poker (object):
       for card in sortedHand:
         hand = hand + str (card) + ' '
       print ('Player ' + str (i + 1) + " : " + hand)
-    c1=Card(14,"S")
-    c2=Card(13,"S")
-    c3=Card(12,"S")
-    c4=Card(11,"S")
-    c5=Card(10,"S")
+    # Test Case
+    c1=Card(9,"C")
+    c2=Card(9,"H")
+    c3=Card(6,"H")
+    c4=Card(6,"C")
+    c5=Card(4,"H")
     self.players[5]=[ c1,c2,c3,c4,c5 ]
     hand=''
     for card in self.players[5]:
@@ -194,7 +195,7 @@ class Poker (object):
   def is_full_house (self, hand):
     full_house1 = True
     full_house2 = True
-    for i in range (len(hand)-2):
+    for i in range (len(hand)-1):
         if (hand[i].rank != hand[i+1].rank and i!=1):
             full_house1 = False
         if (hand[i].rank != hand[i+1].rank and i!=2):
