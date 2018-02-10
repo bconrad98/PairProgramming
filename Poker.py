@@ -115,15 +115,18 @@ class Poker (object):
       if (self.is_royal(self.players[j])):
         h=10
         str_result=("Player "+ str(j+1) + ': ' + 'Royal Flush')
+        
       elif(self.is_straight_flush(self.players[j])):
         h=9
         str_result=("Player "+ str(j+1) + ': ' + 'Straight Flush')
+
       elif(self.is_four_kind(self.players[j])):
         h=8
         str_result=("Player "+ str(j+1) + ': ' + 'Four of a Kind')
         temp_hand = self.players[j]
         if temp_hand[0] != temp_hand[1]:
             temp_hand.reverse()
+
       elif(self.is_full_house(self.players[j])):
         h=7
         str_result=("Player "+ str(j+1) + ': ' + 'Full House')
