@@ -187,14 +187,15 @@ class Poker (object):
 
 
   def is_four_kind (self, hand):
-    four_kind1 = True
-    four_kind2 = True
-    for i in range (len(hand)-1):
-        if (hand[i]!=hand[i+1] and i!=0):
-            four_kind1 = False
-        if (hand[i]!=hand[i+1] and i!=3):
-            four_kind2 = False
-    return four_kind1 or four_kind2
+    same_rank = True
+    for i in range (len(hand)-2):
+      same_rank = same_rank and (hand[i].rank == hand[i+1].rank)
+    if same_rank:
+      return same_rank
+    else:
+      for j in range (1, len(hand)-1):
+        same_rank = same_rank and (hand[j].rank == hand[j+1].rank)
+      return same_rank
 
   def is_full_house (self, hand):
     full_house1 = True
