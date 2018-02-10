@@ -1,3 +1,13 @@
+#  File: Poker.py
+#  Description: Plays Poker with OOP
+#  Student Name: Matthew Frangos
+#  Student UT EID: msf955
+#  Partner Name: Braeden Conrad
+#  Partner UT EID: bsc875
+#  Course Name: CS 313E
+#  Unique Number: 51335
+#  Date Created: 2/5/2018
+#  Date Last Modified: 2/10/2018
 import random
 
 class Card (object):
@@ -77,15 +87,6 @@ class Poker (object):
         hand.append (self.deck.deal())
       self.players.append (hand)
 
-  '''
-  def __str__(self):
-  	string_1=""
-  	list1=[]
-  	for i in range(len(self.players)):
-  		list1=self.players.split()
-  		string_1+= self.players[i].rank
-  	return list1
-'''
   def play (self):
     # sort the hands of each player and print
     for i in range (len(self.players)):
@@ -95,7 +96,7 @@ class Poker (object):
       for card in sortedHand:
         hand = hand + str (card) + ' '
       print ('Player ' + str (i + 1) + " : " + hand)
-    '''
+    ''' TEST CASE IF 6 PLAYERS
     c1=Card(14,"S")
     c2=Card(14,"H")
     c3=Card(11,"S")
@@ -114,15 +115,19 @@ class Poker (object):
     h_hand = [] # create a list for h's
     h=0
     str_result=''
+    # search through all players
     for j in range(0, len(self.players)):
+      # Determine if Royal Flush
       if (self.is_royal(self.players[j])):
         h=10
         str_result=("Player "+ str(j+1) + ': ' + 'Royal Flush')
-        
+      
+      # Determine if Straight Flush  
       elif(self.is_straight_flush(self.players[j])):
         h=9
         str_result=("Player "+ str(j+1) + ': ' + 'Straight Flush')
-
+      
+      # Determine if 4 of a kind, and reverse cards for points algorithm
       elif(self.is_four_kind(self.players[j])):
         h=8
         str_result=("Player "+ str(j+1) + ': ' + 'Four of a Kind')
@@ -130,6 +135,8 @@ class Poker (object):
         if (temp_hand[0] != temp_hand[1]):
             temp_hand.reverse()
         self.players[j] = temp_hand
+      
+      # Determine if full house, and re-order cards for points algorithm  
       elif(self.is_full_house(self.players[j])):
         h=7
         str_result=("Player "+ str(j+1) + ': ' + 'Full House')
@@ -137,12 +144,18 @@ class Poker (object):
         if (temp_hand[2]!=temp_hand[3]):
             temp_hand.reverse()
         self.players[j] = temp_hand
+      
+      # Determine if hand is a flush
       elif(self.is_flush(self.players[j])):
         h=6
         str_result=("Player "+ str(j+1) + ': ' + 'Flush')
+      
+      # Determine if hand is a straight
       elif(self.is_straight(self.players[j])):
         h=5
         str_result=("Player "+ str(j+1) + ': ' + 'Straight')
+      
+      # Determine if hand is 3 of a kind, and re-order cards for points algorithm 
       elif(self.is_three_kind(self.players[j])):
         h=4
         str_result=("Player "+ str(j+1) + ': ' + 'Three of a Kind')
@@ -159,11 +172,14 @@ class Poker (object):
                 elif (i==0):
                     temp_hand = self.players[j]
         self.players[j] = temp_hand
+      
+      # Determine if two pair, and re-order cards for points algorithm 
       elif(self.is_two_pair(self.players[j])):
         h=3
         str_result=("Player "+ str(j+1) + ': ' + 'Two Pair')
         temp_hand = []
         i=0
+        # Search for index location of the non- paired value
         while(i < 4 and self.players[j][i]==self.players[j][i+1]):
             i+=2
         if (i==0):
@@ -176,12 +192,14 @@ class Poker (object):
             temp_hand=self.players[j][0:4]
         temp_hand.append(self.players[j][i])
         self.players[j] = temp_hand
-
+      
+      # Determine if one pair, and re-order cards for points algorithm 
       elif(self.is_one_pair(self.players[j])):
         h=2
         str_result=("Player "+ str(j+1) + ': ' + 'One Pair')
         temp_hand = []
         i=0
+        # Search for index location of the paired value
         while(i < 4 and self.players[j][i]!=self.players[j][i+1]):
             i+=1
         if (i==0):
@@ -194,7 +212,6 @@ class Poker (object):
             temp_hand.append(self.players[j][0])
             temp_hand.append(self.players[j][3])
             temp_hand.append(self.players[j][4])
-#            temp_hand.append(self.players[j][3:5])
         elif (i==2):
             temp_hand = self.players[j][2:4]
             temp_hand.append(self.players[j][0])
@@ -205,35 +222,35 @@ class Poker (object):
             temp_hand = self.players[j][3:5]
             temp_hand.append(self.players[j][0])
             temp_hand.append(self.players[j][1])
-            temp_hand.append(self.players[j][2])
+            temp_hand.append(self.players[j][2]) 
         self.players[j] = temp_hand
 
       elif(self.is_high_card(self.players[j])):
         h=1
-        temp_hand= self.players[j]
         str_result=("Player "+ str(j+1) + ': ' + 'High Card')
       print (str_result)
       points = h * 13**5 + (self.players[j][0]).rank * 13**4 + (self.players[j][1]).rank * 13**3 + (self.players[j][2]).rank * 13**2 + (self.players[j][3]).rank * 13 + (self.players[j][4]).rank
-      print (points)
-      points_hand.append(points)
-      h_hand.append(h)
-
+      # print (points) # for verification
+      points_hand.append(points) # Index of total points value
+      h_hand.append(h)  # Index of h values
 
     # determine winner and print
     print()
     Max = max(h_hand)
     tie_list = []
     count_max = 0
+    # Finds max based on h value
     for i in range(len(h_hand)):
         if (h_hand[i] == Max):
             count_max +=1
             tie_list.append(i)
+    # Finds winner if max h values are tied
     if (len(tie_list) > 1):
         for i in range (1,count_max+1):
             max_val = max(points_hand)
             win1= points_hand.index(max_val)
             print("Player",win1+1,"ties.")
-            points_hand[win1]=0
+            points_hand[win1]=0 # Ensures duplicate winner doesn't exist
     else:
         print("Player",h_hand.index(Max)+1,"wins.")
 
@@ -289,7 +306,6 @@ class Poker (object):
         if (hand[i].rank != hand[i+1].rank and i!=2):
             full_house2 = False
     return full_house1 or full_house2
-
 
   def is_flush (self, hand):
     same_suit = True
