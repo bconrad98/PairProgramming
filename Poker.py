@@ -96,10 +96,10 @@ class Poker (object):
         hand = hand + str (card) + ' '
       print ('Player ' + str (i + 1) + " : " + hand)
     c1=Card(14,"S")
-    c2=Card(13,"S")
-    c3=Card(12,"S")
+    c2=Card(11,"H")
+    c3=Card(11,"S")
     c4=Card(11,"S")
-    c5=Card(10,"S")
+    c5=Card(11,"S")
     self.players[5]=[ c1,c2,c3,c4,c5 ]
     hand=''
     for card in self.players[5]:
@@ -121,9 +121,14 @@ class Poker (object):
       elif(self.is_four_kind(self.players[j])):
         h=8
         str_result=("Player "+ str(j+1) + ': ' + 'Four of a Kind')
+        temp_hand = self.players[j]
+        if temp_hand[0] != temp_hand[1]:
+            temp_hand.reverse()
       elif(self.is_full_house(self.players[j])):
         h=7
         str_result=("Player "+ str(j+1) + ': ' + 'Full House')
+        temp_hand = self.players[j]
+
       elif(self.is_flush(self.players[j])):
         h=6
         str_result=("Player "+ str(j+1) + ': ' + 'Flush')
@@ -143,7 +148,8 @@ class Poker (object):
         h=1
         str_result=("Player "+ str(j+1) + ': ' + 'High Card')
       print (str_result)
-
+      points = h * 13**5 + self.players[j][0].rank * 13**4 + self.players[j][1].rank * 13**3 + self.players[j][2].rank * 13**2 + self.players[j][3].rank * 13 + self.players[j][4].rank
+      points_hand.append(points)
 
 
     # determine winner and print
@@ -181,15 +187,14 @@ class Poker (object):
 
 
   def is_four_kind (self, hand):
-    same_rank = True
-    for i in range (len(hand)-2):
-      same_rank = same_rank and (hand[i].rank == hand[i+1].rank)
-    if same_rank:
-      return same_rank
-    else:
-      for j in range (1, len(hand)-1):
-        same_rank = same_rank and (hand[j].rank == hand[j+1].rank)
-      return same_rank
+    four_kind1 = True
+    four_kind2 = True
+    for i in range (len(hand)-1):
+        if (hand[i]!=hand[i+1] and i!=0):
+            four_kind1 = False
+        if (hand[i]!=hand[i+1] and i!=3):
+            four_kind2 = False
+    return four_kind1 or four_kind2
 
   def is_full_house (self, hand):
     full_house1 = True
