@@ -122,7 +122,7 @@ class Poker (object):
         h=8
         str_result=("Player "+ str(j+1) + ': ' + 'Four of a Kind')
         temp_hand = self.players[j]
-        if temp_hand[0] != temp_hand[1]:
+        if (temp_hand[0] != temp_hand[1]):
             temp_hand.reverse()
       elif(self.is_full_house(self.players[j])):
         h=7
