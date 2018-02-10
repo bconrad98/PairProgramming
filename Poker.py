@@ -95,20 +95,23 @@ class Poker (object):
       for card in sortedHand:
         hand = hand + str (card) + ' '
       print ('Player ' + str (i + 1) + " : " + hand)
+    '''
     c1=Card(14,"S")
-    c2=Card(11,"H")
+    c2=Card(14,"H")
     c3=Card(11,"S")
     c4=Card(11,"S")
-    c5=Card(11,"S")
+    c5=Card(10,"S")
     self.players[5]=[ c1,c2,c3,c4,c5 ]
+    
     hand=''
     for card in self.players[5]:
         hand = hand + str (card) + ' '
     print ('Player ' + str (6) + " : " + hand)
-
+	'''
     # determine the each type of hand and print
     print()
     points_hand = []  # create list to store points for each hand
+    h_hand = [] # create a list for h's
     h=0
     str_result=''
     for j in range(0, len(self.players)):
@@ -124,14 +127,16 @@ class Poker (object):
         h=8
         str_result=("Player "+ str(j+1) + ': ' + 'Four of a Kind')
         temp_hand = self.players[j]
-        if temp_hand[0] != temp_hand[1]:
+        if (temp_hand[0] != temp_hand[1]):
             temp_hand.reverse()
-
+        self.players[j] = temp_hand
       elif(self.is_full_house(self.players[j])):
         h=7
         str_result=("Player "+ str(j+1) + ': ' + 'Full House')
         temp_hand = self.players[j]
-
+        if (temp_hand[2]!=temp_hand[3]):
+            temp_hand.reverse()
+        self.players[j] = temp_hand
       elif(self.is_flush(self.players[j])):
         h=6
         str_result=("Player "+ str(j+1) + ': ' + 'Flush')
@@ -141,22 +146,96 @@ class Poker (object):
       elif(self.is_three_kind(self.players[j])):
         h=4
         str_result=("Player "+ str(j+1) + ': ' + 'Three of a Kind')
+        temp_hand = []
+        for i in range(len(self.players[j])-2):
+            if (self.players[j][i]==self.players[j][i+1]):
+                temp_hand = self.players[j][i:i+3]
+                if (i==1):
+                    temp_hand.append(self.players[j][0])
+                    temp_hand.append(self.players[j][4])
+                elif (i==2):
+                    temp_hand.append(self.players[j][0])
+                    temp_hand.append(self.players[j][1])
+                elif (i==0):
+                    temp_hand = self.players[j]
+        self.players[j] = temp_hand
       elif(self.is_two_pair(self.players[j])):
         h=3
         str_result=("Player "+ str(j+1) + ': ' + 'Two Pair')
+        temp_hand = []
+        i=0
+        while(i < 4 and self.players[j][i]==self.players[j][i+1]):
+            i+=2
+        if (i==0):
+            temp_hand=self.players[j][1:5]
+        elif (i==2):
+            temp_hand=self.players[j][0:2]
+            temp_hand.append(self.players[j][3])
+            temp_hand.append(self.players[j][4])
+        elif (i==4):
+            temp_hand=self.players[j][0:4]
+        temp_hand.append(self.players[j][i])
+        self.players[j] = temp_hand
+
       elif(self.is_one_pair(self.players[j])):
         h=2
         str_result=("Player "+ str(j+1) + ': ' + 'One Pair')
+        temp_hand = []
+        i=0
+        while(i < 4 and self.players[j][i]!=self.players[j][i+1]):
+            i+=1
+        if (i==0):
+            temp_hand = self.players[j][0:2]
+            temp_hand.append(self.players[j][2])
+            temp_hand.append(self.players[j][3])
+            temp_hand.append(self.players[j][4])
+        elif (i==1):
+            temp_hand = self.players[j][1:3]
+            temp_hand.append(self.players[j][0])
+            temp_hand.append(self.players[j][3])
+            temp_hand.append(self.players[j][4])
+#            temp_hand.append(self.players[j][3:5])
+        elif (i==2):
+            temp_hand = self.players[j][2:4]
+            temp_hand.append(self.players[j][0])
+            temp_hand.append(self.players[j][1])
+            temp_hand.append(self.players[j][2])
+            temp_hand.append(self.players[j][4])
+        elif (i==3):
+            temp_hand = self.players[j][3:5]
+            temp_hand.append(self.players[j][0])
+            temp_hand.append(self.players[j][1])
+            temp_hand.append(self.players[j][2])
+        self.players[j] = temp_hand
+
       elif(self.is_high_card(self.players[j])):
         h=1
+        temp_hand= self.players[j]
         str_result=("Player "+ str(j+1) + ': ' + 'High Card')
       print (str_result)
-      points = h * 13**5 + self.players[j][0].rank * 13**4 + self.players[j][1].rank * 13**3 + self.players[j][2].rank * 13**2 + self.players[j][3].rank * 13 + self.players[j][4].rank
+      points = h * 13**5 + (self.players[j][0]).rank * 13**4 + (self.players[j][1]).rank * 13**3 + (self.players[j][2]).rank * 13**2 + (self.players[j][3]).rank * 13 + (self.players[j][4]).rank
+      print (points)
       points_hand.append(points)
+      h_hand.append(h)
 
 
     # determine winner and print
-
+    print()
+    Max = max(h_hand)
+    tie_list = []
+    count_max = 0
+    for i in range(len(h_hand)):
+        if (h_hand[i] == Max):
+            count_max +=1
+            tie_list.append(i)
+    if (len(tie_list) > 1):
+        for i in range (1,count_max+1):
+            max_val = max(points_hand)
+            win1= points_hand.index(max_val)
+            print("Player",win1+1,"ties.")
+            points_hand[win1]=0
+    else:
+        print("Player",h_hand.index(Max)+1,"wins.")
 
   # determine if a hand is a royal flush
   def is_royal (self, hand):
@@ -227,6 +306,7 @@ class Poker (object):
   def is_three_kind (self, hand):
     same_rank = True
     for j in range(0, len(hand)-2):
+      same_rank= True
       for i in range (j, j+2):
         same_rank = same_rank and (hand[i].rank == hand[i+1].rank)
       if same_rank:
