@@ -193,6 +193,7 @@ class Poker (object):
     if same_rank:
       return same_rank
     else:
+      same_rank= True
       for j in range (1, len(hand)-1):
         same_rank = same_rank and (hand[j].rank == hand[j+1].rank)
       return same_rank
@@ -223,7 +224,7 @@ class Poker (object):
   def is_three_kind (self, hand):
     same_rank = True
     for j in range(0, len(hand)-2):
-      for i in range (j, j+3):
+      for i in range (j, j+2):
         same_rank = same_rank and (hand[i].rank == hand[i+1].rank)
       if same_rank:
         return same_rank
@@ -232,7 +233,7 @@ class Poker (object):
   def is_two_pair (self, hand):
     for j in range(0, len(hand)-1):
       if (hand[j].rank == hand[j+1].rank):
-        for i in range(j+1, len(hand)-1):
+        for i in range(j+2, len(hand)-1):
           if(hand[i].rank==hand[i+1].rank):
             return True
     return False
