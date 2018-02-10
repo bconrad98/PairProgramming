@@ -97,7 +97,7 @@ class Poker (object):
       print ('Player ' + str (i + 1) + " : " + hand)
     # Test Case
     c1=Card(9,"C")
-    c2=Card(9,"H")
+    c2=Card(6,"H")
     c3=Card(6,"H")
     c4=Card(6,"C")
     c5=Card(4,"H")
@@ -188,6 +188,7 @@ class Poker (object):
     if same_rank:
       return same_rank
     else:
+      same_rank=True
       for j in range (1, len(hand)-1):
         same_rank = same_rank and (hand[j].rank == hand[j+1].rank)
       return same_rank
@@ -218,7 +219,8 @@ class Poker (object):
   def is_three_kind (self, hand):
     same_rank = True
     for j in range(0, len(hand)-2):
-      for i in range (j, j+3):
+      same_rank=True
+      for i in range (j, j+2):
         same_rank = same_rank and (hand[i].rank == hand[i+1].rank)
       if same_rank:
         return same_rank
@@ -227,7 +229,7 @@ class Poker (object):
   def is_two_pair (self, hand):
     for j in range(0, len(hand)-1):
       if (hand[j].rank == hand[j+1].rank):
-        for i in range(j+1, len(hand)-1):
+        for i in range(j+2, len(hand)-1):
           if(hand[i].rank==hand[i+1].rank):
             return True
     return False
