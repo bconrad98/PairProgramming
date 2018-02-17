@@ -118,7 +118,10 @@ class Player (object):
 
   # complete the code so that the cards and points are printed
   def __str__ (self):
-    ...
+    string = ''
+    for card in self.cards:
+        string+= str(card)+' '
+    return string + "- " + str(self.getPoints()) + " points"
 
 # Dealer class inherits from the Player class
 class Dealer (Player):
@@ -160,47 +163,55 @@ class Blackjack (object):
   def play (self):
     # Print the cards that each player has
     for i in range (self.numPlayers):
-      print ('Player ' + str(i + 1) + ': ' + (self.Players[i]))
+      print ('Player ' + str(i + 1) + ': ' + str(self.Players[i]))
 
     # Print the cards that the dealer has
-    print ('Dealer: ' + self.dealer)
+    print ('Dealer: ' + str(self.dealer))
+    print()
 
     # Each player hits until he says no
     playerPoints = []
-    for i in range (numPlayers):
+    for i in range (self.numPlayers):
       while True:
-        choice = input ('do you want to hit? [y / n]: ')
+        input_string = 'Player' + str(i+1) + ', do you want to hit? [y / n]: '
+        choice = input (input_string)
         if choice in ('y', 'Y'):
           (self.Players[i]).hit (self.deck.deal())
           points = (self.Players[i]).getPoints()
-          print ('Player ' + str(i + 1) + ': ' + self.Players[i])
+          print ('Player ' + str(i + 1) + ': ' + str(self.Players[i]))
           if points >= 21:
             break
         else:
           break
       playerPoints.append ((self.Players[i]).getPoints())
+      print()
 
     # Dealer's turn to hit
     self.dealer.hit (self.deck)
     dealerPoints = self.dealer.getPoints()
-    print ('Dealer: ' + self.dealer + ' - ' + str(dealerPoints))
+    print ('Dealer: ' + str(self.dealer) )
+    print ()
 
     # determine the outcome; you will have to re-write the code
     # it was written for just one player having playerPoints
     # do not output result for dealer
-    if dealerPoints > 21:
-      print ('Dealer loses')
-    elif dealerPoints > playerPoints:
-      print ('Dealer wins')
-    elif (dealerPoints < playerPoints and playerPoints <= 21):
-      print ('Player wins')
-    elif dealerPoints == playerPoints:
-      if self.player.hasBlackjack() and not self.dealer.hasBlackjack():
-        print ('Player wins')
-      elif not self.player.hasBlackjack() and self.dealer.hasBlackjack():
-        print ('Dealer wins')
+    for i in range(len(playerPoints)):
+      if playerPoints[i] > 21:
+        print ('Player',i+1,'loses')
       else:
-        print ('There is a tie')
+        if dealerPoints > 21:
+            print ('Player',i+1,'wins')
+        elif dealerPoints>playerPoints[i]:
+            print ('Player',i+1,'loses')
+        elif dealerPoints<playerPoints[i]:
+            print ('Player',i+1,'wins')
+        else:
+            if (self.Players[i].hasBlackjack() and not self.dealer.hasBlackjack()):
+                print ('Player',i+1,'wins')
+            elif (not self.Players[i].hasBlackjack() and self.dealer.hasBlackjack()):
+                print ('Player',i+1,'loses')
+            else:
+                print ('Player',i+1,'ties')
 
 def main ():
   numPlayers = eval (input ('Enter number of players: '))
