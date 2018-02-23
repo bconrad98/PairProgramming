@@ -18,16 +18,23 @@
 
 #  Date Last Modified: 02/23/18
 
-def subsets (a, b, lo):
+def does_fit_subset(subset):
+    for i in range (len(subset)-1):
+        if (not(does_fit(subset[i],subset[i+1]))):
+            return False
+    return True
+
+def subsets (a, b, lo, subsets_list):
   hi = len(a)
   if (lo == hi):
-    print (b)
+    if (does_fit_subset(b)):
+      subsets_list.append(b)
     return
   else:
     c = b[:]
     b.append (a[lo])
-    subsets (a, c, lo + 1)
-    subsets (a, b, lo + 1)
+    subsets (a, c, lo + 1,subsets_list)
+    subsets (a, b, lo + 1,subsets_list)
 
 def does_fit (box1, box2):
   return (box1[0] < box2[0]) and (box1[1] < box2[1]) and (box1[2] < box2[2])
@@ -59,15 +66,23 @@ def main():
 
   # sort the box list
   box_list.sort()
-  print (box_list)
 
   # create a list that will hold the nested boxes
+  subset_list = []
+  b = []
 
-  # create a variable for the size of the nested boxes
+  # fill list will hold all subsets that fit
+  subsets(box_list,b,0,subset_list)
 
-  # get all subsets of boxes
+  #find the longest length of the subset list
+  Max = len(subset_list[0])
+  for i in range(len(subset_list)):
+      if len(subset_list[i]) > Max :
+          Max = len(subset_list[i])
+  #print subsets that have longest length
+  for i in range(len(subset_list)):
+      if len(subset_list[i]) == Max :
+          print (subset_list[i])
 
-  # for each subset check if they all fit
 
-  # add to list
 main()
