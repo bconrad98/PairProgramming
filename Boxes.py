@@ -1,19 +1,19 @@
 #  File: Boxes.py
 
-#  Description:
+#  Description: Find the largest subset of boxes that fit
 
-#  Student Name:
+#  Student Name: Braeden Conrad
 
-#  Student UT EID:
+#  Student UT EID: bsc875
 
-#  Partner Name:
+#  Partner Name: Matthew Frangos
 
-#  Partner UT EID:
+#  Partner UT EID: msf955
 
 #  Course Name: CS 313E
 
-#  Unique Number:
+#  Unique Number: 51335
 
-#  Date Created:
+#  Date Created: 02/23/18
 
-#  Date Last Modified:
+#  Date Last Modified: 02/23/18
