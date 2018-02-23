@@ -80,9 +80,9 @@ def main():
       if len(subset_list[i]) > Max :
           Max = len(subset_list[i])
   #print subsets that have longest length
+  longest_boxes = []
   for i in range(len(subset_list)):
       if len(subset_list[i]) == Max :
-          print (subset_list[i])
-
+          longest_boxes.append(subset_list[i])
 
 main()
