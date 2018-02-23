@@ -2,13 +2,14 @@
 def permute (a, lo):
   hi = len(a)
   if (lo == hi):
-    if (is_right_bench(a)):
-        print(a)
+  	if((abs(a.index("B")-a.index("A"))==1) and (abs(a.index("B")-a.index("C"))!=1)):
+  		print(a)
   else:
     for i in range (lo, hi):
       a[lo], a[i] = a[i], a[lo]
-      permute (a, lo + 1)
+      permute(a, lo+1)
       a[lo], a[i] = a[i], a[lo]
+     
 def is_right_bench(a):
     for i in range(1,len(a)-1):
         if (a[i]=='A'):
@@ -26,6 +27,7 @@ def is_right_bench(a):
     if ((a[0]=='A' and a[1]!='B') or (a[0]=='B' and a[1]!='A')):
         return False
     return True
+
 def main():
     letters = ['A','B','C','D','E']
     permute(letters,0)
