@@ -18,6 +18,17 @@
 
 #  Date Last Modified: 02/23/18
 
+def subsets (a, b, lo):
+  hi = len(a)
+  if (lo == hi):
+    print (b)
+    return
+  else:
+    c = b[:]
+    b.append (a[lo])
+    subsets (a, c, lo + 1)
+    subsets (a, b, lo + 1)
+
 def does_fit (box1, box2):
   return (box1[0] < box2[0]) and (box1[1] < box2[1]) and (box1[2] < box2[2])
 
