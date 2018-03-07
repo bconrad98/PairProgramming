@@ -84,7 +84,8 @@ def main():
   for i in range(len(subset_list)):
       if len(subset_list[i]) == Max :
           longest_boxes.append(subset_list[i])
-          
+
+  longest_boxes.sort()
   for i in range (len(longest_boxes)):
   	for j in range (len(longest_boxes[i])):
   		print(longest_boxes[i][j])
