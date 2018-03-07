@@ -29,7 +29,20 @@ def sum_exhaustive(grid, partial, row, position, sum_list):
 
 # returns the greatest path sum using greedy approach
 def greedy (grid):
-  return
+  value= sum_greedy(grid, int(grid[0][0]), 0, 0)
+  return (value)
+
+def sum_greedy(grid, partial, row, position):
+  hi = len(grid)
+  if (row+1 == hi):
+    return (int(partial))
+  else:
+    if(grid[row+1][position]>grid[row+1][position+1]):
+      partial+=grid[row+1][position]
+      return (sum_greedy (grid, partial, row+1, position))
+    else:
+      partial+=grid[row+1][position+1]
+      return (sum_greedy (grid, partial, row+1, position+1))
 
 def conquer (grid,row,index):
   if (row+1 == len(grid)):
