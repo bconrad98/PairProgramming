@@ -2,13 +2,13 @@
 
 #  Description: Find the largest subset of boxes that fit
 
-#  Student Name: Braeden Conrad
+#  Student Name: Matthew Frangos
 
-#  Student UT EID: bsc875
+#  Student UT EID: msf955
 
-#  Partner Name: Matthew Frangos
+#  Partner Name: Braeden Conrad
 
-#  Partner UT EID: msf955
+#  Partner UT EID: bsc875
 
 #  Course Name: CS 313E
 
@@ -18,12 +18,14 @@
 
 #  Date Last Modified: 02/23/18
 
+# Checks if the subset from the subsets have boxes that all fit
 def does_fit_subset(subset):
     for i in range (len(subset)-1):
         if (not(does_fit(subset[i],subset[i+1]))):
             return False
     return True
 
+# Produces all subsets of a list
 def subsets (a, b, lo, subsets_list):
   hi = len(a)
   if (lo == hi):
@@ -36,6 +38,7 @@ def subsets (a, b, lo, subsets_list):
     subsets (a, c, lo + 1,subsets_list)
     subsets (a, b, lo + 1,subsets_list)
 
+# Check if one box fits inside another
 def does_fit (box1, box2):
   return (box1[0] < box2[0]) and (box1[1] < box2[1]) and (box1[2] < box2[2])
 
@@ -79,12 +82,15 @@ def main():
   for i in range(len(subset_list)):
       if len(subset_list[i]) > Max :
           Max = len(subset_list[i])
-  #print subsets that have longest length
+
+  # Create new array of the correct subsets of max length
   longest_boxes = []
   for i in range(len(subset_list)):
       if len(subset_list[i]) == Max :
           longest_boxes.append(subset_list[i])
-          
+  longest_boxes.sort()
+
+  # Prints in necessary format
   for i in range (len(longest_boxes)):
   	for j in range (len(longest_boxes[i])):
   		print(longest_boxes[i][j])
