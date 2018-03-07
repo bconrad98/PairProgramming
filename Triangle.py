@@ -4,7 +4,7 @@
 #  Student's UT EID: msf955
 #  Partner's Name: Braeden Conrad
 #  Partner's UT EID: bsc875
-#  Course Name: CS 313E 
+#  Course Name: CS 313E
 #  Unique Number: 51335
 #  Date Created: 3/7/2018
 #  Date Last Modified:
@@ -31,9 +31,15 @@ def sum_exhaustive(grid, partial, row, position, sum_list):
 def greedy (grid):
   return
 
+def conquer (grid,row,index):
+  if (row+1 == len(grid)):
+      return grid[row][index]
+  else:
+      return grid[row][index] + max(conquer(grid,row+1,index),conquer(grid,row+1,index+1))
+
 # returns the greatest path sum using divide and conquer (recursive) approach
 def rec_search (grid):
-  return
+  return conquer(grid,0,0)
 
 # returns the greatest path sum and the new grid using dynamic programming
 def dynamic_prog (grid):
@@ -41,8 +47,8 @@ def dynamic_prog (grid):
 
 # reads the file and returns a 2-D list that represents the triangle
 def read_file ():
-  return 
-  
+  return
+
 def main ():
   # read triangular grid from file
   in_file= open('triangle.txt', 'r')
@@ -93,7 +99,7 @@ def main ():
   print('The time taken for recursive search is '+str(del_t)+'seconds.')
   print()
   ti = time.time()
-  # output greates path from dynamic programming 
+  # output greates path from dynamic programming
   great_sum=dynamic_prog(row_list)
   print("The greatest path sum through dynamic programming is "+ str(great_sum) + '.')
   tf = time.time()
