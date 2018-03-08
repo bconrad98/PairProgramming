@@ -7,7 +7,7 @@
 #  Course Name: CS 313E
 #  Unique Number: 51335
 #  Date Created: 3/7/2018
-#  Date Last Modified:
+#  Date Last Modified: 3/7/2018
 import time
 # returns the greatest path sum using exhaustive search
 def exhaustive_search (grid):
@@ -56,7 +56,18 @@ def rec_search (grid):
 
 # returns the greatest path sum and the new grid using dynamic programming
 def dynamic_prog (grid):
-  return
+  sec_to_last = len(grid) - 2
+  return sum_dynamic(grid,sec_to_last,0)
+
+def sum_dynamic(grid,row,index):
+  if (row == 0):
+      return grid[0][0] + max(grid[row+1][index],grid[row+1][index+1])
+  else:
+      if (index == len(grid[row])):
+          return sum_dynamic(grid,row-1,0)
+      else:
+          grid[row][index] = max(grid[row][index]+grid[row+1][index], grid[row+1][index+1])
+          return sum_dynamic(grid,row,index+1)
 
 # reads the file and returns a 2-D list that represents the triangle
 def read_file ():
