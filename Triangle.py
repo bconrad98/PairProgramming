@@ -61,12 +61,12 @@ def dynamic_prog (grid):
 
 def sum_dynamic(grid,row,index):
   if (row == 0):
-      return grid[0][0] + max(grid[row+1][index],grid[row+1][index+1])
+      return grid[0][0] + max(grid[1][0],grid[1][1])
   else:
       if (index == len(grid[row])):
           return sum_dynamic(grid,row-1,0)
       else:
-          grid[row][index] = max(grid[row][index]+grid[row+1][index], grid[row+1][index+1])
+          grid[row][index] = grid[row][index] + max(grid[row+1][index], grid[row+1][index+1])
           return sum_dynamic(grid,row,index+1)
 
 # reads the file and returns a 2-D list that represents the triangle
@@ -102,7 +102,7 @@ def main ():
   tf = time.time()
   del_t = tf - ti
   # print time taken using exhaustive search
-  print('The time taken for exhaustive search is '+str(del_t)+'seconds.')
+  print('The time taken for exhaustive search is '+str(del_t)+' seconds.')
   print()
   ti = time.time()
   # output greatest path from greedy approach
@@ -111,7 +111,7 @@ def main ():
   tf = time.time()
   del_t = tf - ti
   # print time taken using greedy approach
-  print('The time taken for greedy search is '+str(del_t)+'seconds.')
+  print('The time taken for greedy search is '+str(del_t)+' seconds.')
   print()
   ti = time.time()
   # output greates path from divide-and-conquer approach
@@ -120,7 +120,7 @@ def main ():
   tf = time.time()
   del_t = tf - ti
   # print time taken using divide-and-conquer approach
-  print('The time taken for recursive search is '+str(del_t)+'seconds.')
+  print('The time taken for recursive search is '+str(del_t)+' seconds.')
   print()
   ti = time.time()
   # output greates path from dynamic programming
@@ -129,6 +129,6 @@ def main ():
   tf = time.time()
   del_t = tf - ti
   # print time taken using dynamic programming
-  print('The time taken for dynamic programming is '+str(del_t)+'seconds.')
+  print('The time taken for dynamic programming is '+str(del_t)+' seconds.')
 if __name__ == "__main__":
   main()
