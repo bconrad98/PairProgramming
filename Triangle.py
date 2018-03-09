@@ -7,7 +7,7 @@
 #  Course Name: CS 313E
 #  Unique Number: 51335
 #  Date Created: 3/7/2018
-#  Date Last Modified: 3/7/2018
+#  Date Last Modified: 3/8/2018
 import time
 # returns the greatest path sum using exhaustive search
 def exhaustive_search (grid):
