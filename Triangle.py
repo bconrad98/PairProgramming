@@ -7,7 +7,8 @@
 #  Course Name: CS 313E
 #  Unique Number: 51335
 #  Date Created: 3/7/2018
-#  Date Last Modified: 3/8/2018
+#  Date Last Modified: 3/9/2018
+
 import time
 # returns the greatest path sum using exhaustive search
 def exhaustive_search (grid):
@@ -92,7 +93,7 @@ def main ():
     for i in range (len(row)):
       row[i] = int (row[i])
     row_list.append (row)
-  print(row_list)
+  #print(row_list)
   print()
 
   ti = time.time()
