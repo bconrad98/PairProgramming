@@ -114,6 +114,7 @@ class LinkedList (object):
 			self.first = self.first.next
 		else:
 			previous.next = current.next
+		return
 
 
   # String representation of data 10 items to a line, 2 spaces between data
