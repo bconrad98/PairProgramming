@@ -25,78 +25,113 @@ class Link (object):
 
 class LinkedList (object):
 	def __init__ (self):
-    self.first = None
+		self.first=None
 
   # get number of links 
-  def get_num_links (self):
-  	current=self.first
-  	count=1
-  	if(current==None):
-  		return 0
-  	while (current != None):
-        current = current.next
-        count+=1
-    return count
+	def get_num_links (self):
+		current=self.first
+		count=1
+		if(current==None):
+			return 0
+		while (current != None):
+			current = current.next
+			count+=1
+		return count
   
   # add an item at the beginning of the list
-  def insert_first (self, item): 
-    new_link = Link (item)
-    new_link.next = self.first
-    self.first = new_link
+	def insert_first (self, item): 
+	  new_link = Link (item)
+	  new_link.next = self.first
+	  self.first = new_link
 
-  # add an item at the end of a list
-  def insert_last (self, item): 
-  	new_link = Link (item)
+	# add an item at the end of a list
+	def insert_last (self, item): 
+		new_link = Link (item)
 
-    current = self.first
-    if (current == None):
-      self.first = new_link
-      return
+		current = self.first
+		if (current == None):
+			self.first = new_link
+			return
 
-    while (current.next != None):
-      current = current.next
+		while (current.next != None):
+			current = current.next
 
-    current.next = new_link
+		current.next = new_link
 
   # add an item in an ordered list in ascending order
-  def insert_in_order (self, item): 
-    new_link=Link(item)	
-    if(current==None):
-    	self.first=new_link
-    	return
-  	while(new_link.data>current.data):
-  		current=current.next
-
+	def insert_in_order (self, item): 
+		new_link=Link(item)	
+		if(current==None):
+			self.first=new_link
+			return
+		while(new_link.data>current.data):
+			current=current.next
+		new_link.next = current
 
   # search in an unordered list, return None if not found
-  def find_unordered (self, item): 
+	def find_unordered (self, item): 
+		current = self.first
+
+		if (current == None):
+			return None
+
+		while (current.data != item):
+			if (current.next == None):
+				return None
+			else:
+				current = current.next
+
+		return current
 
   # Search in an ordered list, return None if not found
-  def find_ordered (self, item): 
+	def find_ordered (self, item): 
+		current=self.first
+		if(current==None):
+			return None
+		while(item>current.data):
+			current=current.next
+		if(current.data==item):
+			return current
+		else:
+			return None
 
   # Delete and return Link from an unordered list or None if not found
-  def delete_link (self, item):
-  	previous = self.first
-    current = self.first
+	def delete_link (self, item):
+		previous = self.first
+		current = self.first
 
-    if (current == None):
-      return None
+		if (current == None):
+			return None
 
-    while (current.data != item):
-      if (current.next == None):
-        return None
-      else:
-        previous = current
-	      current = current.next
+		while (current.data != item):
+			if (current.next == None):
+				return None
+			else:
+				previous = current
+				current = current.next
 
-    if (current == self.first):
-      self.first = self.first.next
-    else:
-      previous.next = current.next
+		if (current == self.first):
+			self.first = self.first.next
+		else:
+			previous.next = current.next
 
 
   # String representation of data 10 items to a line, 2 spaces between data
-  def __str__ (self):
+	def __str__ (self):
+		current=self.first
+		count=0
+		list_str=''
+		while(current!=None):
+			count=1
+			while(count<10):
+				if(current==None):
+					break
+				else:
+					count+=1
+					list_str+=str(current.data)+'  '
+					current=current.next
+			list_str+='\n'
+		return list_str
 
   # Copy the contents of a list and return new list
   def copy_list (self):
