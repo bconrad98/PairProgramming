@@ -4,7 +4,7 @@
 #  Student's UT EID: msf955
 #  Partner's Name: Braeden Conrad
 #  Partner's UT EID: bsc875
-#  Course Name: CS 313E
+#  Course Name: CS 313Es
 #  Unique Number: 51335
 #  Date Created: 3/7/2018
 #  Date Last Modified: 3/9/2018
@@ -58,7 +58,11 @@ def rec_search (grid):
 # returns the greatest path sum and the new grid using dynamic programming
 def dynamic_prog (grid):
   sec_to_last = len(grid) - 2
-  return sum_dynamic(grid,sec_to_last,0)
+  combination=sum_dynamic(grid,sec_to_last,0)
+  grid[0][0]=combination
+  for i in range (len(grid)):
+    print(grid[i])
+  return combination
 
 def sum_dynamic(grid,row,index):
   if (row == 0):
@@ -76,7 +80,7 @@ def read_file ():
 
 def main ():
   # read triangular grid from file
-  in_file= open('triangle.txt', 'r')
+  in_file= open('triangle0.txt', 'r')
    # read the number of rows
   line = in_file.readline()
   line = line.strip()
