@@ -277,5 +277,5 @@ def main():
 
   # Test remove_duplicates()
 
-if __name__ == "__main__":
-  main()
+	if __name__ == "__main__":
+		main()
