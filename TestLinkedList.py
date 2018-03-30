@@ -240,43 +240,59 @@ class LinkedList (object):
 def main():
   # Test methods insert_first() and __str__() by adding more than
   # 10 items to a list and printing it.
-	linked_list = LinkedList()
-	items = [1,2,3,3,5,6,1,2,8,11,3]
-	for item in items:
-		linked_list.insert_first(item)
-	print(linked_list)
+  linked_list = LinkedList()
+  items = [1,2,3,3,5,6,1,2,8,11,3]
+  items2 = [1,2,3,4,5,6,7,8,9,10]
+  for item in items:
+	linked_list.insert_first(item)
+  print(linked_list)
+
   # Test method insert_last()
-
+  linked_list1 = LinkedList()
+  for item in items:
+      linked_list1.insert_last(item)
+  print(linked_list1)
   # Test method insert_in_order()
-
+  linked_list2 = LinkedList()
+  for item in items:
+      linked_list2.insert_in_order(item)
+  print(linked_list2)
   # Test method get_num_links()
-
+  print(linked_list1.get_num_links())
   # Test method find_unordered()
-  # Consider two cases - item is there, item is not there
-
+  # Consider two cases - item is there, item is not ther
+  print(linked_list1.find_unordered(55))
+  print(linked_list1.find_unordered(2))
   # Test method find_ordered()
   # Consider two cases - item is there, item is not there
-
+  linked_list3 = LinkedList()
+  for item in items2:
+      linked_list3.insert_last(item)
+  print(linked_list3.find_ordered(3))
+  print(linked_list3.find_ordered(11))
   # Test method delete_link()
   # Consider two cases - item is there, item is not there
-
+  print(linked_list1.delete_link(15))
+  print(linked_list1.delete_link(5))
   # Test method copy_list()
-
+  print(linked_list1.copy_list())
   # Test method reverse_list()
-
+  print(linked_list1.reverse_list())
   # Test method sort_list()
-
+  print(linked_list1.sort_list())
   # Test method is_sorted()
   # Consider two cases - list is sorted, list is not sorted
-
+  print(linked_list1.is_sorted())
+  print(linked_list1.is_sorted())
   # Test method is_empty()
-
+  print(linked_list1.is_empty())
   # Test method merge_list()
-
+  print(linked_list1.merge_list(linked_list2))
   # Test method is_equal()
   # Consider two cases - lists are equal, lists are not equal
-
+  print(linked_list2.is_equal(linked_list3))
+  print(linked_list1.is_equal(linked_list3))
   # Test remove_duplicates()
-
-	if __name__ == "__main__":
+  print(linked_list1.remove_duplicates())
+if __name__ == "__main__":
 		main()
