@@ -19,9 +19,9 @@
 #  Date Last Modified: 3/30/2018
 
 class Link (object):
-  def __init__ (self, data, next = None):
-    self.data = data
-    self.next = next
+	def __init__ (self, data, next = None):
+		self.data = data
+		self.next = next
 
 class LinkedList (object):
 	def __init__ (self):
@@ -135,116 +135,116 @@ class LinkedList (object):
 		return list_str
 
   # Copy the contents of a list and return new list
-    def copy_list (self):
-        if (self.is_empty):
-            return None
-        linked_list = LinkedList()
-        cur = self.first
-        while (cur != None):
-            linked_list.insert_last(cur.data)
-            cur = cur.next
-        return linked_list
+	def copy_list (self):
+		if (self.is_empty):
+			return None
+		linked_list = LinkedList()
+		cur = self.first
+		while (cur != None):
+			linked_list.insert_last(cur.data)
+			cur = cur.next
+		return linked_list
 
   # Reverse the contents of a list and return new list
-    def reverse_list (self):
-        if (self.is_empty):
-            return None
-        linked_list = LinkedList()
-        cur = self.first
-        while (cur != None):
-            linked_list.insert_first(cur.data)
-            cur = cur.next
-        return linked_list
+	def reverse_list (self):
+		if (self.is_empty):
+			return None
+		linked_list = LinkedList()
+		cur = self.first
+		while (cur != None):
+			linked_list.insert_first(cur.data)
+			cur = cur.next
+		return linked_list
 
   # Sort the contents of a list in ascending order and return new list
-    def sort_list (self):
-        if (self.is_empty):
-            return None
-        linked_list = LinkedList()
-        cur = self.first
-        val_list = []
-        while (cur != None):
-            val_list.append(cur.data)
-            cur = cur.next
-        val_list.sort()
-        for val in val_list:
-            linked_list.insert_last(val)
-        return linked_list
+	def sort_list (self):
+		if (self.is_empty):
+			return None
+		linked_list = LinkedList()
+		cur = self.first
+		val_list = []
+		while (cur != None):
+			val_list.append(cur.data)
+			cur = cur.next
+		val_list.sort()
+		for val in val_list:
+			linked_list.insert_last(val)
+		return linked_list
 
   # Return True if a list is sorted in ascending order or False otherwise
-    def is_sorted (self):
-        return self.is_equal(self.sort_list())
+	def is_sorted (self):
+		return self.is_equal(self.sort_list())
 
-  # Return True if a list is empty or False otherwise
-    def is_empty (self):
-        if (self.first == None):
-            return True
-        else:
-            return False
+	# Return True if a list is empty or False otherwise
+	def is_empty (self):
+		if (self.first == None):
+			return True
+		else:
+			return False
 
-  # Merge two sorted lists and return new list in ascending order
-    def merge_list (self, other):
-        linked_list = LinkedList()
-        cur_self = self.first
-        cur_other = other.first
-        while (cur_self != None and cur_other != None):
-            if (cur_self.data >= cur_other.data):
-                linked_list.insert_last(cur_self.data)
-                cur_self = cur_self.next
-            else:
-                linked_list.insert_last(cur_other.data)
-                cur_other = cur_other.next
-        while (cur_self != None):
-            linked_list.insert_last(cur_self.data)
-            cur_self = cur_self.next
-        while (cur_other != None):
-            linked_list.insert_last(other_self.data)
-            other_self = other_self.next
-        return linked_list
+	# Merge two sorted lists and return new list in ascending order
+	def merge_list (self, other):
+		linked_list = LinkedList()
+		cur_self = self.first
+		cur_other = other.first
+		while (cur_self != None and cur_other != None):
+			if (cur_self.data >= cur_other.data):
+				linked_list.insert_last(cur_self.data)
+				cur_self = cur_self.next
+			else:
+				linked_list.insert_last(cur_other.data)
+				cur_other = cur_other.next
+		while (cur_self != None):
+			linked_list.insert_last(cur_self.data)
+			cur_self = cur_self.next
+		while (cur_other != None):
+			linked_list.insert_last(other_self.data)
+			other_self = other_self.next
+		return linked_list
 
-  # Test if two lists are equal, item by item and return True
-    def is_equal (self, other):
-        if (self.get_num_links() != other.get_num_links()):
-            return False
-        cur_self = self.first
-        cur_other = self.first
-        while (cur_self != None and cur_other != None):
-            if (cur_self.data != cur_other.data):
-                return False
-            cur_self = cur_self.next
-            cur_other = cur_other.next
-        return True
+	# Test if two lists are equal, item by item and return True
+	def is_equal (self, other):
+		if (self.get_num_links() != other.get_num_links()):
+			return False
+		cur_self = self.first
+		cur_other = self.first
+		while (cur_self != None and cur_other != None):
+			if (cur_self.data != cur_other.data):
+				return False
+			cur_self = cur_self.next
+			cur_other = cur_other.next
+		return True
 
   # Return a new list, keeping only the first occurence of an element
   # and removing all duplicates. Do not change the order of the elements.
-    def remove_duplicates (self):
-        if (self.is_empty()):
-            return None
-        linked_list = self.copy_list()
-        data_list = []
-        cur = linked_list.first
-        while (cur != None):
-            data_list.append(cur.data)
-            cur = cur.next
-        data_list.sort()
-        for i in range (len(data_list)-1):
-            if (data_list[i] == data_list[i+1)]):
-                 trash = data_list.pop(i)
-        cur = linked_list.first
-        while (cur != None):
-            if (cur.data in data_list):
-                linked_list.remove_link(cur.data)
-            cur = cur.next
-        return linked_list
+	def remove_duplicates (self):
+		if (self.is_empty()):
+			return None
+		linked_list = self.copy_list()
+		data_list = []
+		cur = linked_list.first
+		while (cur != None):
+			data_list.append(cur.data)
+			cur = cur.next
+		data_list.sort()
+		for i in range (len(data_list)-1):
+			if (data_list[i] == data_list[i+1]):
+				trash = data_list.pop(i)
+		cur = linked_list.first
+		while (cur != None):
+			if (cur.data in data_list):
+					linked_list.remove_link(cur.data)
+			cur = cur.next
+		return linked_list
 
 def main():
   # Test methods insert_first() and __str__() by adding more than
   # 10 items to a list and printing it.
-  linked_list = LinkedList()
-  items = [1,2,3,3,5,6,1,2,8,11,3]
-  for item in items:
-      linked_list.insert_first(item)
-  print(linked_list)
+	linked_list = LinkedList()
+	items = [1,2,3,3,5,6,1,2,8,11,3]
+	for item in items:
+		linked_list.insert_first(item)
+	print(linked_list)
   # Test method insert_last()
 
   # Test method insert_in_order()
