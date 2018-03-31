@@ -61,11 +61,14 @@ class LinkedList (object):
   # add an item in an ordered list in ascending order
 	def insert_in_order (self, item):
 		new_link=Link(item)
+		current=self.first
 		if(current==None):
 			self.first=new_link
 			return
 		while(new_link.data>current.data):
 			current=current.next
+			if(current==None):
+				break
 		new_link.next = current
 
   # search in an unordered list, return None if not found
@@ -90,7 +93,11 @@ class LinkedList (object):
 			return None
 		while(item>current.data):
 			current=current.next
-		if(current.data==item):
+			if(current==None):
+				break
+		if(current==None):
+			return None
+		elif(current.data==item):
 			return current
 		else:
 			return None
@@ -124,7 +131,7 @@ class LinkedList (object):
 		list_str=''
 		while(current!=None):
 			count=1
-			while(count<10):
+			while(count<11):
 				if(current==None):
 					break
 				else:
@@ -136,7 +143,7 @@ class LinkedList (object):
 
   # Copy the contents of a list and return new list
 	def copy_list (self):
-		if (self.is_empty):
+		if (self.is_empty()):
 			return None
 		linked_list = LinkedList()
 		cur = self.first
@@ -158,7 +165,7 @@ class LinkedList (object):
 
   # Sort the contents of a list in ascending order and return new list
 	def sort_list (self):
-		if (self.is_empty):
+		if (self.is_empty()):
 			return None
 		linked_list = LinkedList()
 		cur = self.first
@@ -173,7 +180,7 @@ class LinkedList (object):
 
   # Return True if a list is sorted in ascending order or False otherwise
 	def is_sorted (self):
-		return self.is_equal(self.sort_list())
+		return self.is_equal((self.sort_list()))
 
 	# Return True if a list is empty or False otherwise
 	def is_empty (self):
@@ -198,12 +205,16 @@ class LinkedList (object):
 			linked_list.insert_last(cur_self.data)
 			cur_self = cur_self.next
 		while (cur_other != None):
-			linked_list.insert_last(other_self.data)
-			other_self = other_self.next
+			linked_list.insert_last(cur_other.data)
+			cur_other=cur_other.next
 		return linked_list
 
 	# Test if two lists are equal, item by item and return True
 	def is_equal (self, other):
+		if(self.first==None and other.first==None):
+			return True
+		elif(self.first==None or other.first==None):
+			return False
 		if (self.get_num_links() != other.get_num_links()):
 			return False
 		cur_self = self.first
@@ -220,16 +231,19 @@ class LinkedList (object):
 	def remove_duplicates (self):
 		if (self.is_empty()):
 			return None
+		linked_list=LinkedList()
 		linked_list = self.copy_list()
 		data_list = []
-		cur = linked_list.first
+		cur = (linked_list).first
 		while (cur != None):
 			data_list.append(cur.data)
 			cur = cur.next
 		data_list.sort()
-		for i in range (len(data_list)-1):
-			if (data_list[i] == data_list[i+1]):
-				trash = data_list.pop(i)
+		count=0
+		while((count+1)<=len(data_list)):
+			if (data_list[count] == data_list[count+1]):
+				trash = data_list.pop(count)
+			count+=1
 		cur = linked_list.first
 		while (cur != None):
 			if (cur.data in data_list):
@@ -244,19 +258,19 @@ def main():
   items = [1,2,3,3,5,6,1,2,8,11,3]
   items2 = [1,2,3,4,5,6,7,8,9,10]
   for item in items:
-	linked_list.insert_first(item)
+    linked_list.insert_first(item)
   print(linked_list)
 
   # Test method insert_last()
   linked_list1 = LinkedList()
   for item in items:
-      linked_list1.insert_last(item)
+    linked_list1.insert_last(item)
   print(linked_list1)
   # Test method insert_in_order()
   linked_list2 = LinkedList()
   for item in items:
-      linked_list2.insert_in_order(item)
-  print(linked_list2)
+    linked_list2.insert_in_order(item)
+  print(linked_list2) 
   # Test method get_num_links()
   print(linked_list1.get_num_links())
   # Test method find_unordered()
@@ -294,5 +308,6 @@ def main():
   print(linked_list1.is_equal(linked_list3))
   # Test remove_duplicates()
   print(linked_list1.remove_duplicates())
+
 if __name__ == "__main__":
 		main()
