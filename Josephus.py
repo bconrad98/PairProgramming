@@ -53,9 +53,16 @@ class CircularList(object):
 			return None
 		prev.next = cur.next
 
-	def delete_after(self,start,n):
-		cur = self.find(start.data)
-
+	def delete_after(self,start,n): #this needs work
+		cur = start
+		for i in range(n-1):
+			cur = cur.next
+		if (cur == self.head):
+			cur = cur.next
+		self.delete(cur.data)
+		if (cur.next == self.head):
+			return cur.next.next
+		return cur.next
 
 	def __str__(self):
 		cur=self.head.next
