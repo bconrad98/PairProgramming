@@ -22,10 +22,18 @@ class Link (object):
 	def __init__ (self, data, next = None):
 		self.data = data
 		self.next = next
+	def __str__ (self):
+		strabs=('Link Found: '+str(self.data))
+		return (strabs)
 
 class LinkedList (object):
 	def __init__ (self):
 		self.first=None
+
+	def __str__ (self):
+		strabs=('Link Found: '+str(self.data))
+		return (strabs)
+
 
   # get number of links
 	def get_num_links (self):
@@ -70,6 +78,7 @@ class LinkedList (object):
 			if(current==None):
 				break
 		new_link.next = current
+		return
 
   # search in an unordered list, return None if not found
 	def find_unordered (self, item):
@@ -154,7 +163,7 @@ class LinkedList (object):
 
   # Reverse the contents of a list and return new list
 	def reverse_list (self):
-		if (self.is_empty):
+		if (self.is_empty()):
 			return None
 		linked_list = LinkedList()
 		cur = self.first
@@ -242,12 +251,13 @@ class LinkedList (object):
 		count=0
 		while((count+1)<=len(data_list)):
 			if (data_list[count] == data_list[count+1]):
-				trash = data_list.pop(count)
+				data_list[count]=0
 			count+=1
+
 		cur = linked_list.first
 		while (cur != None):
 			if (cur.data in data_list):
-					linked_list.remove_link(cur.data)
+				linked_list.remove_link(cur.data)
 			cur = cur.next
 		return linked_list
 
@@ -259,6 +269,7 @@ def main():
   items2 = [1,2,3,4,5,6,7,8,9,10]
   for item in items:
     linked_list.insert_first(item)
+
   print(linked_list)
 
   # Test method insert_last()
