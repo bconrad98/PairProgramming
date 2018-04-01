@@ -59,10 +59,13 @@ class CircularList(object):
 			cur = cur.next
 		if (cur == self.head):
 			cur = cur.next
-		self.delete(cur.data)
 		if (cur.next == self.head):
-			return cur.next.next
-		return cur.next
+			next_link = cur.next.next
+		else: 
+			next_link = cur.next
+		self.delete(cur.data)
+		
+		return next_link
 
 	def __str__(self):
 		cur=self.head.next
