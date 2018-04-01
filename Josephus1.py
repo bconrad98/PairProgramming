@@ -16,7 +16,9 @@
 
 #  Date Created: 03/31/18
 
-#  Date Last Modified: 03/31/18
+#  Date Last Modified: 04/01/18
+
+# Creates list for printed order
 kill_list=[]
 
 class Link(object):
@@ -29,6 +31,7 @@ class CircularList(object):
 		self.first = Link(1)
 		self.first.next = self.first #head points to itself
 
+	# Inserts an element into the list
 	def insert(self,item):
 		cur=self.first
 		new_link = Link(item)
@@ -41,6 +44,7 @@ class CircularList(object):
 			new_link.next=cur.next
 			cur.next=new_link
 		
+	# Find the link with the given key
 	def find(self,key):
 		cur = self.first
 		if (key == cur.data):
@@ -52,20 +56,23 @@ class CircularList(object):
 			cur = cur.next
 		return None
 
+	# Deleta a link with a given key
 	def delete (self,key):
 		prev = self.first
-		cur = self.first
+		cur = self.first.next
 		if(cur==None):
 			return None
 		while(cur.data!=key):
 			prev = cur
 			cur = cur.next
 		if (cur == self.first):
-			self.first = self.first.next
+			self.first = cur.next
+			prev.next=cur.next
 		else:
 			prev.next = cur.next
 
-
+	# Delete the nth link starting from the Link start
+	# Return the next link from the deleted link
 	def delete_after(self,start,n): #this needs work
 		cur = start
 		for i in range(n-1):
@@ -76,6 +83,7 @@ class CircularList(object):
 		
 		return next_link
 
+	# Return a string representation of a Circular list
 	def __str__(self):
 		cur=self.first
 		count = 1
@@ -102,22 +110,32 @@ class CircularList(object):
 		return count	
 
 def main():
+	# Creates object list and reads file
 	circular_list = CircularList()
 	in_file = open("josephus.txt",'r')
 	num_soldiers = int(in_file.readline().strip())
+
+	# Creates the circular list of soldiers
 	for i in range (2,num_soldiers+1):
 		circular_list.insert(i)
-	print(circular_list)
 	start = circular_list.find(int(in_file.readline().strip()))
-	print(start)
 	n = int(in_file.readline().strip())
-	print(circular_list.length())
+	
+	# Runs program to kill soldiers
 	while (circular_list.length() > 1):
 		start = circular_list.delete_after(start,n)
-		
-	print("Last element:",circular_list.first.data)
-	print(circular_list)
-	print(kill_list)
-	print(len(kill_list))
+	print("Final Soldier:",circular_list.first.data)
+	str1='Elimination List: '+str(kill_list[0])
+	count=2
 
+	# Print list of soldiers killed in order
+	for i in range (1,len(kill_list)):
+		if(count>10):
+			str1+=',\n                  '
+			count=1
+		else:
+			str1+=', '
+		str1+=str(kill_list[i])
+		count+=1
+	print(str1)
 main()
