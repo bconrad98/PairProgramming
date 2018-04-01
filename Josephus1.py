@@ -61,12 +61,13 @@ class CircularList(object):
 			prev = cur
 			cur = cur.next
 		if (cur == self.first):
+			print("this is called when cur.data = ",cur.data)
 			self.first = self.first.next
 		else:
 			prev.next = cur.next
 
 
-	def delete_after(self,start,n): #this needs work
+	def delete_after(self,start,n): 
 		cur = start
 		for i in range(n-1):
 			cur = cur.next
