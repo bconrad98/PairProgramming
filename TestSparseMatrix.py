@@ -73,10 +73,7 @@ class Matrix (object):
 
   # perform assignment operation: matrix[row][col] = data
   def set_element (self, row, col, data):
-    cur = matrix[row].first
-    for i in range(col-1):
-      cur = cur.next
-    cur.data = data
+    return    
 
   # add two sparse matrices
   def __add__ (self, other):
@@ -100,10 +97,13 @@ class Matrix (object):
     for linked_row in self.matrix:
       cur = linked_row.first
       for j in range(self.col):
-        print(cur)
-        val = cur.data
-        s += '%-4s ' % (val)
-        cur = cur.next
+        if (cur == None):
+          s += '%-4s ' % (0)
+        elif (j == cur.col):
+          s += '%-4s ' % (cur.data)
+          cur = cur.next
+        else:
+          s += '%-4s ' % (0)
       s += '\n'
     return s
 
