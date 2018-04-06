@@ -77,7 +77,37 @@ class Matrix (object):
 
   # add two sparse matrices
   def __add__ (self, other):
-    return
+    sum_mat=[]
+    for linked_row in self.matrix:
+      cur=linked_row.first
+      row_mat=[]
+      for j in range(self.col):
+        if(cur==None):
+          row_mat.append(0)
+        else:
+          row_mat.append(cur.data)
+          cur=cur.next
+      sum_mat.append(row_mat)
+    
+    i=0
+    for linked_row in other.matrix:
+      cur=linked_row.first
+      for j in range(other.col):
+        if(cur==None):
+          sum_mat[i][j]+=0
+        else:
+          sum_mat[i][j]+=cur.data
+          cur=cur.next
+      i+=1
+    sum_mat2=Matrix(self.row,self.col)
+    for a in range(self.row):
+      new_row = LinkedList()
+      for b in range (self.col):
+        elt = sum_mat[a][b]
+        if (elt != 0):
+          new_row.insert_last(b, elt)
+      sum_mat2.matrix.append (new_row)
+    return (sum_mat2)
 
   # multiply two sparse matrices
   def __mul__ (self, other):
