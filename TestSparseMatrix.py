@@ -116,7 +116,16 @@ class Matrix (object):
   # add two sparse matrices
   def __add__ (self, other):
     new_mat=Matrix(self.row,self.col)
-    sum_mat=[]
+    for i in range(self.row):
+      new_row=LinkedList()
+      row_s=self.get_row(i)
+      row_o=other.get_row(i)
+      sum1=0
+      for j in range(self.col):
+        sum1=row_s[j]+row_o[j]
+        new_row.insert_last(j, sum1)
+      new_mat.matrix.append(new_row)
+      '''new_mat=Matrix(self.row,self.col)
     for i in range (len(self.matrix)):
       linked_row_self=self.matrix[i]
       linked_row_other=other.matrix[i]
@@ -147,13 +156,23 @@ class Matrix (object):
             val=curO.data
             curO=curO.next
         new_row.insert_last(j, val)
-      new_mat.matrix.append(new_row)
+      new_mat.matrix.append(new_row)'''
     return (new_mat)
 
   # multiply two sparse matrices
   def __mul__ (self, other):
     new_mat=Matrix(self.row,other.col)
-    return
+    for i in range(self.row):
+      row=self.get_row(i)
+      mat_row=LinkedList()
+      for j in range(other.col):
+        col=other.get_col(j)
+        sum1=0
+        for k in range(len(col)):
+          sum1+=row[k]*col[k]
+        mat_row.insert_last(j,sum1)
+      new_mat.matrix.append(mat_row)
+    return (new_mat)
 
   # return a list representing a row with the zero elements inserted
   def get_row (self, n):
