@@ -34,6 +34,22 @@ class LinkedList (object):
   def __init__ (self):
     self.first = None
 
+  def insert_before (self, col, start, data):
+    new_link = Link(col, data)
+    cur = self.first
+    while (cur.next != start):
+      cur = cur.next
+    new_link.next = cur.next
+    cur.next = new_link
+
+  def delete_link (self,link):
+    prev = self.first
+    cur = self.first
+    while (cur != link):
+      prev = cur
+      cur = cur.next
+    prev.next = cur.next
+
   def insert_last (self, col, data):
     new_link = Link (col, data)
     current = self.first
@@ -46,6 +62,13 @@ class LinkedList (object):
       current = current.next
 
     current.next = new_link
+  def length (self):
+    cur = self.first
+    tot = 0
+    while (cur != None):
+      cur = cur.next
+      tot += 1
+    return tot
 
   # return a String representation of a LinkedList
   def __str__ (self):
@@ -73,7 +96,22 @@ class Matrix (object):
 
   # perform assignment operation: matrix[row][col] = data
   def set_element (self, row, col, data):
-    return    
+    cur = self.matrix[row].first
+    while (cur != None):
+      if (cur.col == col):
+        if (data != 0):
+          cur.data = data
+          return
+        else:
+          self.matrix[row].delete_link(cur)
+          return
+      elif (col < cur.col):
+        if (data != 0):
+          self.matrix[row].insert_before(col,cur,data)
+        return
+      else:
+        cur = cur.next
+    self.matrix[row].insert_last(col,data)    
 
   # add two sparse matrices
   def __add__ (self, other):
@@ -115,11 +153,31 @@ class Matrix (object):
 
   # return a list representing a row with the zero elements inserted
   def get_row (self, n):
-    return
+    row_list = []
+    cur = self.matrix[n].first
+    for j in range(self.col):
+      if (cur == None):
+        row_list.append(0)
+      elif (j == cur.col):
+        row_list.append(cur.data)
+        cur = cur.next
+      else:
+        row_list.append(0)
+    return row_list
 
   # return a list representing a column with the zero elements inserted
   def get_col (self, n):
-    return
+    col_list = []
+    for linked_row in self.matrix:
+      cur = linked_row.first
+      while (cur != None):
+        if (cur.col == n):
+          col_list.append(cur.data)
+          break
+        cur = cur.next
+      if (cur == None):
+        col_list.append(0)
+    return col_list
 
   # return a String representation of a matrix
   def __str__ (self):
@@ -177,7 +235,6 @@ def main():
   print (matR)
 
   print ("\nTest Setting a Zero Element to a Non-Zero Value")
-  matA.set_element (1, 1, 5)
   print (matA)
 
   print ("\nTest Setting a Non-Zero Elements to a Zero Value")
