@@ -115,40 +115,44 @@ class Matrix (object):
 
   # add two sparse matrices
   def __add__ (self, other):
+    new_mat=Matrix(self.row,self.col)
     sum_mat=[]
-    for linked_row in self.matrix:
-      cur=linked_row.first
+    for i in range (len(self.matrix)):
+      linked_row_self=self.matrix[i]
+      linked_row_other=other.matrix[i]
+      curS=linked_row_self.first
+      curO=linked_row_other.first
       row_mat=[]
+      new_row=LinkedList()
       for j in range(self.col):
-        if(cur==None):
-          row_mat.append(0)
+        val=0
+        if(curS==None):
+          if(curO==None):
+            continue
+          else:
+            val=curO.data
+            curO=curO.next
         else:
-          row_mat.append(cur.data)
-          cur=cur.next
-      sum_mat.append(row_mat)
-    
-    i=0
-    for linked_row in other.matrix:
-      cur=linked_row.first
-      for j in range(other.col):
-        if(cur==None):
-          sum_mat[i][j]+=0
-        else:
-          sum_mat[i][j]+=cur.data
-          cur=cur.next
-      i+=1
-    sum_mat2=Matrix(self.row,self.col)
-    for a in range(self.row):
-      new_row = LinkedList()
-      for b in range (self.col):
-        elt = sum_mat[a][b]
-        if (elt != 0):
-          new_row.insert_last(b, elt)
-      sum_mat2.matrix.append (new_row)
-    return (sum_mat2)
+          if(curO==None):
+            val=curS.data
+            curS=curS.next
+          elif(curS.col==curO.col and curS.col==j):
+            val=curS.data + curO.data
+            curS=curS.next
+            curO=curO.next
+          elif(curS.col==j):
+            val=curS.data
+            curS=curS.next
+          elif(curO.col==j):
+            val=curO.data
+            curO=curO.next
+        new_row.insert_last(j, val)
+      new_mat.matrix.append(new_row)
+    return (new_mat)
 
   # multiply two sparse matrices
   def __mul__ (self, other):
+    new_mat=Matrix(self.row,other.col)
     return
 
   # return a list representing a row with the zero elements inserted
