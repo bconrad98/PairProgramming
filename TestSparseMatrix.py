@@ -34,6 +34,22 @@ class LinkedList (object):
   def __init__ (self):
     self.first = None
 
+  def insert_link (self, item):
+    new_link=Link(item)
+    prev = self.first
+    current=self.first
+    if(current==None):
+      self.first=new_link
+      return
+    while(new_link.data>current.data):
+      prev = current
+      current=current.next
+      if(current==None):
+        break
+    new_link.next = current
+
+    prev.next = new_link
+
   def insert_before (self, col, start, data):
     new_link = Link(col, data)
     cur = self.first
@@ -42,13 +58,33 @@ class LinkedList (object):
     new_link.next = cur.next
     cur.next = new_link
 
-  def delete_link (self,link):
+  def delete_link2 (self,link):
     prev = self.first
     cur = self.first
     while (cur != link):
       prev = cur
       cur = cur.next
     prev.next = cur.next
+
+  def delete_link (self, item):
+    previous = self.first
+    current = self.first
+
+    if (current == None):
+      return None
+
+    while (current.data != item):
+      if (current.next == None):
+        return None
+      else:
+        previous = current
+        current = current.next
+
+    if (current == self.first):
+      self.first = self.first.next
+    else:
+      previous.next = current.next
+    return
 
   def insert_last (self, col, data):
     new_link = Link (col, data)
@@ -103,7 +139,7 @@ class Matrix (object):
           cur.data = data
           return
         else:
-          self.matrix[row].delete_link(cur)
+          self.matrix[row].delete_link2(cur)
           return
       elif (col < cur.col):
         if (data != 0):
