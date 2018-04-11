@@ -18,8 +18,10 @@
 
 #  Date Last Modified: 4/11/2018
 
+operators=['+', '-', '*', '/']
+
 class Stack (object):
-	def __init__ (self):
+  def __init__ (self):
     self.stack = []
 
   # add an item to the top of the stack
@@ -52,35 +54,16 @@ class Tree (object):
   def __init__ (self):
     self.root = None
 
-  # search for a node with a key
-  def search (self, key):
-    current = self.root
-    while (current != None) and (current.data != key):
-      if (key < current.data):
-        current = current.lchild
-      else:
-        current = current.rchild
-    return current
+  def createTree (self, expr):
+  	array=expr.split()
+  	for val in array:
+  		if(val=='('):
 
-  # insert a node in a tree
-  def insert (self, val):
-    new_node = Node (val)
 
-    if (self.root == None):
-      self.root = new_node
-    else:
-      current = self.root
-      parent = self.root
-      while (current != None):
-        parent = current
-	if (val < current.data):
-	  current = current.lchild
-	else:
-	  current = current.rchild
-      if (val < parent.data):
-        parent.lchild = new_node
-      else:
-        parent.rchild = new_node
+
+
+  def evaluate (self, aNode):
+
 
   # in order traversal - left, center, right
   def in_order (self, aNode):
@@ -99,14 +82,38 @@ class Tree (object):
   # post order traversal - left, right, center
   def post_order (self, aNode):
     if (aNode != None):
-
-  def createTree (self, expr):
-
-  def evaluate (self, aNode):
-
-  def postOrder (self, aNode):
+      self.post_order (aNode.lchild)
+      self.post_order (aNode.rchild)
+      print(aNode.data)
 
 def main():
 
 main()
   
+'''
+def operate (oper1, oper2, token):
+  if (token == "+"):
+    return oper1 + oper2
+  elif (token == "-"):
+    return oper1 - oper2
+  elif (token == "*"):
+    return oper1 * oper2
+  elif (token == "/"):
+    return oper1 / oper2
+ 
+def rpn (s):
+  theStack = Stack()
+
+  operators = ["+", "-", "*", "/"]
+
+  tokens = s.split()
+
+  for item in tokens:
+    if (item in operators):
+      oper2 = theStack.pop()
+      oper1 = theStack.pop()
+      theStack.push (operate (oper1, oper2, item))
+    else:
+      theStack.push (float(item))
+
+  return theStack.pop()'''
