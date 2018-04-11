@@ -117,8 +117,11 @@ class LinkedList (object):
         if(current==None):
           break
         else:
+          if (count>1):
+            list_str+=', '+str(current)
+          else:
+            list_str+=str(current)
           count+=1
-          list_str+=str(current.data)+'  '
           current=current.next
       list_str+='\n'
     return list_str
