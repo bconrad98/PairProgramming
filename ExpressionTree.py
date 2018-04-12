@@ -76,40 +76,59 @@ class Tree (object):
   			current.data=val
   			current=theStack.pop()
 
-  '''def evaluate (self, aNode): 
-  	sum=0
-  	while(aNode.lchild.data!=operators):
-  		if(aNode.data=='+'):
-  		  sum1= aNode.lchild.data + aNode.rchild.data
-  		elif (aNode.data == "-"):
-        return aNode.lchild.data - aNode.rchild.data
-      elif (aNode.data == "*"):
-        return aNode.lchild.data * aNode.rchild.data
-      elif (aNode.data == "/"):
-        return aNode.lchild.data / aNode.rchild.data
-  	return''' #THIS DOEsN"T WORK
+  def operate (self, oper1, oper2, token):
+	  if (token == "+"):
+	    return oper1 + oper2
+	  elif (token == "-"):
+	    return oper1 - oper2
+	  elif (token == "*"):
+	    return oper1 * oper2
+	  elif (token == "/"):
+	    return oper1 / oper2
+ 
+  def evaluate (self, aNode):
+	  theStack = Stack()
 
+	  tokens=self.post_order(self.root,[])
 
+	  for item in tokens:
+	    if (item in operators):
+	      oper2 = theStack.pop()
+	      oper1 = theStack.pop()
+	      theStack.push (self.operate (oper1, oper2, item))
+	    else:
+	      theStack.push (float(item))
+
+	  return theStack.pop()
+  
   # in order traversal - left, center, right
-  def in_order (self, aNode):
+  def in_order (self, aNode, array):
     if (aNode != None):
-      self.in_order (aNode.lchild)
-      print (aNode.data)
-      self.in_order (aNode.rchild)
+      self.in_order (aNode.lchild, array)
+      array.append(aNode.data)
+      self.in_order (aNode.rchild, array)
+    return array
 
   # pre order traversal - center, left, right
-  def pre_order (self, aNode):
+  def pre_order (self, aNode, array):
     if (aNode != None):
-      print (aNode.data)
-      self.pre_order (aNode.lchild)
-      self.pre_order (aNode.rchild)
+      array.append(aNode.data)
+      self.pre_order (aNode.lchild, array)
+      self.pre_order (aNode.rchild, array)
+    return array
 
   # post order traversal - left, right, center
-  def post_order (self, aNode):
+  def post_order (self, aNode, array):
     if (aNode != None):
-      self.post_order (aNode.lchild)
-      self.post_order (aNode.rchild)
-      print(aNode.data)
+      self.post_order (aNode.lchild, array)
+      self.post_order (aNode.rchild, array)
+      array.append(aNode.data)
+    return array
+
+def print_array(array):
+	for a in array:
+		print(str(a), end=' ')
+	print()
 
 def main():
 	tree=Tree()
@@ -117,6 +136,12 @@ def main():
 	line=in_file.readline()
 	tree.createTree(str(line))
 	value=tree.evaluate(tree.root)
+	tree.in_order(tree.root,[])
+	print(str(line), " = ", str(value))
+	print("Prefix Expression:", end=' ')
+	print_array(tree.pre_order(tree.root,[]))
+	print("Postfix Expression:", end=' ')
+	print_array(tree.post_order(tree.root,[]))
 main()
   
 '''
