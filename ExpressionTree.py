@@ -55,14 +55,39 @@ class Tree (object):
     self.root = None
 
   def createTree (self, expr):
+  	theStack=Stack()
   	array=expr.split()
+  	current=Node(None)
+  	self.root=current
   	for val in array:
   		if(val=='('):
+  			current.lchild=Node(None)
+  			theStack.push(current)
+  			current=current.lchild
+  		elif(val in operators):
+  			current.data=val
+  			theStack.push(current)
+  			current.rchild=Node(None)
+  			current=current.rchild
+  		elif(val==')'):
+  			if(theStack.is_empty()!=True):
+  				current=theStack.pop()
+  		else:
+  			current.data=val
+  			current=theStack.pop()
 
-
-
-
-  def evaluate (self, aNode):
+  '''def evaluate (self, aNode): 
+  	sum=0
+  	while(aNode.lchild.data!=operators):
+  		if(aNode.data=='+'):
+  		  sum1= aNode.lchild.data + aNode.rchild.data
+  		elif (aNode.data == "-"):
+        return aNode.lchild.data - aNode.rchild.data
+      elif (aNode.data == "*"):
+        return aNode.lchild.data * aNode.rchild.data
+      elif (aNode.data == "/"):
+        return aNode.lchild.data / aNode.rchild.data
+  	return''' #THIS DOEsN"T WORK
 
 
   # in order traversal - left, center, right
@@ -87,7 +112,11 @@ class Tree (object):
       print(aNode.data)
 
 def main():
-
+	tree=Tree()
+	in_file = open ("./expression.txt", "r")
+	line=in_file.readline()
+	tree.createTree(str(line))
+	value=tree.evaluate(tree.root)
 main()
   
 '''
