@@ -16,7 +16,7 @@
 
 #  Date Created: 4/11/2018
 
-#  Date Last Modified: 4/11/2018
+#  Date Last Modified: 4/12/2018
 
 operators=['+', '-', '*', '/']
 
@@ -44,16 +44,19 @@ class Stack (object):
   def size (self):
     return (len(self.stack))
 
+# Create Binary Node class with data and children
 class Node (object):
   def __init__ (self, data):
     self.data = data
     self.lchild = None
     self.rchild = None
 
+# Create tree class with a root
 class Tree (object):
   def __init__ (self):
     self.root = None
 
+  # Follows algorithm given to make a tree from the given string expression
   def createTree (self, expr):
   	theStack=Stack()
   	array=expr.split()
@@ -76,6 +79,7 @@ class Tree (object):
   			current.data=val
   			current=theStack.pop()
 
+  # Helper function to evaluate, performs rudamentary mathematics
   def operate (self, oper1, oper2, token):
 	  if (token == "+"):
 	    return oper1 + oper2
@@ -85,12 +89,11 @@ class Tree (object):
 	    return oper1 * oper2
 	  elif (token == "/"):
 	    return oper1 / oper2
- 
+
+  # Runs evaluation of the binary tree
   def evaluate (self, aNode):
 	  theStack = Stack()
-
 	  tokens=self.post_order(self.root,[])
-
 	  for item in tokens:
 	    if (item in operators):
 	      oper2 = theStack.pop()
@@ -98,10 +101,9 @@ class Tree (object):
 	      theStack.push (self.operate (oper1, oper2, item))
 	    else:
 	      theStack.push (float(item))
-
 	  return theStack.pop()
   
-  # in order traversal - left, center, right
+  # in order traversal - left, center, right - returns array
   def in_order (self, aNode, array):
     if (aNode != None):
       self.in_order (aNode.lchild, array)
@@ -109,7 +111,7 @@ class Tree (object):
       self.in_order (aNode.rchild, array)
     return array
 
-  # pre order traversal - center, left, right
+  # pre order traversal - center, left, right - returns array
   def pre_order (self, aNode, array):
     if (aNode != None):
       array.append(aNode.data)
@@ -117,7 +119,7 @@ class Tree (object):
       self.pre_order (aNode.rchild, array)
     return array
 
-  # post order traversal - left, right, center
+  # post order traversal - left, right, center - returns array
   def post_order (self, aNode, array):
     if (aNode != None):
       self.post_order (aNode.lchild, array)
@@ -125,6 +127,7 @@ class Tree (object):
       array.append(aNode.data)
     return array
 
+# Prints array in row
 def print_array(array):
 	for a in array:
 		print(str(a), end=' ')
@@ -143,31 +146,3 @@ def main():
 	print("Postfix Expression:", end=' ')
 	print_array(tree.post_order(tree.root,[]))
 main()
-  
-'''
-def operate (oper1, oper2, token):
-  if (token == "+"):
-    return oper1 + oper2
-  elif (token == "-"):
-    return oper1 - oper2
-  elif (token == "*"):
-    return oper1 * oper2
-  elif (token == "/"):
-    return oper1 / oper2
- 
-def rpn (s):
-  theStack = Stack()
-
-  operators = ["+", "-", "*", "/"]
-
-  tokens = s.split()
-
-  for item in tokens:
-    if (item in operators):
-      oper2 = theStack.pop()
-      oper1 = theStack.pop()
-      theStack.push (operate (oper1, oper2, item))
-    else:
-      theStack.push (float(item))
-
-  return theStack.pop()'''
