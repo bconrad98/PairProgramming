@@ -49,10 +49,10 @@ class Tree (object):
       parent = self.root
       while (current != None):
         parent = current
-	if (val < current.data):
+        if (val < current.data):
           current = current.lChild
-	else:
-	  current = current.rChild
+        else:
+          current = current.rChild
 
       if (val < parent.data):
         parent.lChild = newNode
@@ -63,13 +63,13 @@ class Tree (object):
   def inOrder (self, aNode):
     if (aNode != None):
       inOrder (aNode.lChild)
-      print aNode.data
+      print (aNode.data)
       inOrder (aNode.rChild)
 
   # Pre order traversal - center, left, right
   def preOrder (self, aNode):
     if (aNode != None):
-      print aNode.data
+      print (aNode.data)
       preOrder (aNode.lChild)
       preOrder (aNode.rChild)
 
@@ -78,7 +78,7 @@ class Tree (object):
     if (aNode != None):
       postOrder (aNode.lChild)
       postOrder (aNode.rChild)
-      print aNode.data
+      print (aNode.data)
 
   # Find the node with the smallest value
   def minimum (self):
@@ -113,10 +113,10 @@ class Tree (object):
       parent = deleteNode
       if (key < deleteNode.data):
         deleteNode = deleteNode.lChild
-	isLeft = True
+        isLeft = True
       else:
         deleteNode = deleteNode.rChild
-	isLeft = False
+        isLeft = False
       
     # If node not found
     if (deleteNode == None):
@@ -157,7 +157,7 @@ class Tree (object):
 
       while (successor.lChild != None):
         successorParent = successor
-	successor = successor.lChild
+        successor = successor.lChild
 
       # Successor node right child of delete node
       if (deleteNode == self.root):
@@ -173,6 +173,6 @@ class Tree (object):
       # Successor node left descendant of delete node
       if (successor != deleteNode.rChild):
         successorParent.lChild = successor.rChild
-	successor.rChild = deleteNode.rChild
+        successor.rChild = deleteNode.rChild
 
     return True
