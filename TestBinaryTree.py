@@ -176,3 +176,40 @@ class Tree (object):
         successor.rChild = deleteNode.rChild
 
     return True
+  def is_similar (self, pNode):
+    if (self.root == None and pNode.root == None):
+      return True
+    elif (self.root == None or pNode.root == None):
+      return False
+    current1 = self.root
+    current2 = pNode.root
+
+    #check through the left tree
+    while (current1 != None and current2 != Null):
+      if (current1.data != current2.data):
+        return False
+      current1 = current1.lChild
+      currtent2 = current2.lChild
+    # check through right tree
+    current1 = self.root
+    current2 = pNode.root
+    while (current1 != None and current2 != Null):
+      if (current1.data != current2.data):
+        return False
+      current1 = current1.rChild
+      currtent2 = current2.rChild
+    return True
+
+  def print_level (self, level):
+
+
+  def get_height (self):
+
+
+  def num_nodes (self):
+
+
+def main():
+  # create three trees
+  elements = [50,30,70,10,40,60,80,7,25,38,47,58,65,77,96]
+  
