@@ -184,33 +184,52 @@ class Tree (object):
       return True
     elif (self.root == None or pNode.root == None):
       return False
-    current1 = self.root
-    current2 = pNode.root
+    else:
+      return self.is_similar_wrapper(self.root,pNode.root)
+    
 
-    #check through the left tree
-    while (current1 != None and current2 != Null):
-      if (current1.data != current2.data):
-        return False
-      current1 = current1.lChild
-      currtent2 = current2.lChild
-    # check through right tree
-    current1 = self.root
-    current2 = pNode.root
-    while (current1 != None and current2 != Null):
-      if (current1.data != current2.data):
-        return False
-      current1 = current1.rChild
-      currtent2 = current2.rChild
-    return True
+  def is_similar_wrapper (self, root1, root2):
+    if (root1 == None and root2 == None):
+      return True
+    elif (root1 == None or root2 == None):
+      return False
+    else:
+      return (root1.data == root2.data) and self.is_similar_wrapper(root1.lChild,root2.lChild) and self.is_similar_wrapper(root1.rChild,root2.rChild)
 
   def print_level (self, level):
-    return
+    if (level > self.get_height()):
+      return
+    level_elements = []
+    if (self.root == None):
+      print()
+      return
+    elif (level == 1):
+      level_elements.append(self.root.data)
+      print(level_elements[0])
+    else:
+      self.print_level_wrap(self.root,level,level_elements)
+      for data in level_elements:
+        print(data,end = ' ')
+      print()
 
+  def print_level_wrap(self,aNode,level,array):
+    if (level == 1):
+      array.append(aNode.data)
+      return
+    else:
+      self.print_level_wrap(aNode.lChild,level-1,array)
+      self.print_level_wrap(aNode.rChild,level-1,array)
+      return
 
 
   def get_height (self):
-    return
+    return self.get_height_wrap(self.root)
 
+  def get_height_wrap(self,root):
+    if (root == None):
+      return 0
+    else:
+      return (1 + max(self.get_height_wrap(root.lChild),self.get_height_wrap(root.rChild)))
 
   def num_nodes (self):
     current=self.root
@@ -230,6 +249,23 @@ def main():
     tree2.insert(i)
   for i in elements2:
     tree3.insert(i)
+  # testing is_similar
+  print("Is_similar: ",tree1.is_similar(tree2))
+  print("Is_similar: ",tree1.is_similar(tree3))
+
+  # print various levels
+  print ("Level 2 (tree1):", end = ' ')
+  tree1.print_level(2)
+  print ("Level 4 (tree1):", end = ' ')
+  tree1.print_level(4)
+  print ("Level 2 (tree3):", end = ' ')
+  tree3.print_level(2)
+
+  # get the height of the two different trees
+  print ("Height of tree1: ", tree1.get_height())
+  print ("Height of tree3: ", tree3.get_height())
+
+  # get the total number of nodes of binary search tree
   root,l_length,r_length=tree1.num_nodes()
   print(root,l_length,r_length)
 
