@@ -59,26 +59,29 @@ class Tree (object):
       else:
         parent.rChild = newNode
 
-  # In order traversal - left, center, right
-  def inOrder (self, aNode):
+  # in order traversal - left, center, right - returns array
+  def in_order (self, aNode, array):
     if (aNode != None):
-      inOrder (aNode.lChild)
-      print (aNode.data)
-      inOrder (aNode.rChild)
+      self.in_order (aNode.lChild, array)
+      array.append(aNode.data)
+      self.in_order (aNode.rChild, array)
+    return array
 
-  # Pre order traversal - center, left, right
-  def preOrder (self, aNode):
+  # pre order traversal - center, left, right - returns array
+  def pre_order (self, aNode, array):
     if (aNode != None):
-      print (aNode.data)
-      preOrder (aNode.lChild)
-      preOrder (aNode.rChild)
+      array.append(aNode.data)
+      self.pre_order (aNode.lChild, array)
+      self.pre_order (aNode.rChild, array)
+    return array
 
-  # Post order traversal - left, right, center
-  def postOrder (self, aNode):
+  # post order traversal - left, right, center - returns array
+  def post_order (self, aNode, array):
     if (aNode != None):
-      postOrder (aNode.lChild)
-      postOrder (aNode.rChild)
-      print (aNode.data)
+      self.post_order (aNode.lChild, array)
+      self.post_order (aNode.rChild, array)
+      array.append(aNode.data)
+    return array
 
   # Find the node with the smallest value
   def minimum (self):
@@ -201,15 +204,34 @@ class Tree (object):
     return True
 
   def print_level (self, level):
+    return
+
 
 
   def get_height (self):
+    return
 
 
   def num_nodes (self):
-
+    current=self.root
+    left=len(self.in_order(current.lChild,[]))
+    right=len(self.in_order(current.rChild,[]))
+    return(current.data,left,right)
 
 def main():
   # create three trees
   elements = [50,30,70,10,40,60,80,7,25,38,47,58,65,77,96]
+  elements2 = [50,30,70,10,40,44,62,80,7,25,99,38,47,1,27,58,65,77,96]
+  tree1=Tree()
+  tree2=Tree()
+  tree3=Tree()
+  for i in elements:
+    tree1.insert(i)
+    tree2.insert(i)
+  for i in elements2:
+    tree3.insert(i)
+  root,l_length,r_length=tree1.num_nodes()
+  print(root,l_length,r_length)
+
+main()
   
