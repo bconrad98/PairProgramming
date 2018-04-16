@@ -16,7 +16,7 @@
 
 #  Date Created: 04/12/18
 
-#  Date Last Modified: 04/12/18
+#  Date Last Modified: 04/15/18
 
 class Node (object):
   def __init__ (self, data):
@@ -179,6 +179,8 @@ class Tree (object):
         successor.rChild = deleteNode.rChild
 
     return True
+
+  # Determines if two binary trees are the same
   def is_similar (self, pNode):
     if (self.root == None and pNode.root == None):
       return True
@@ -187,7 +189,7 @@ class Tree (object):
     else:
       return self.is_similar_wrapper(self.root,pNode.root)
     
-
+  # Recursively transverses the binary tree to find equality
   def is_similar_wrapper (self, root1, root2):
     if (root1 == None and root2 == None):
       return True
@@ -196,6 +198,7 @@ class Tree (object):
     else:
       return (root1.data == root2.data) and self.is_similar_wrapper(root1.lChild,root2.lChild) and self.is_similar_wrapper(root1.rChild,root2.rChild)
 
+  # Calls the wrapper function in order to print the level of the tree
   def print_level (self, level):
     if (level > self.get_height()):
       return
@@ -203,7 +206,7 @@ class Tree (object):
     if (self.root == None):
       print()
       return
-    elif (level == 1):
+    elif (level == 0):
       level_elements.append(self.root.data)
       print(level_elements[0])
     else:
@@ -212,8 +215,9 @@ class Tree (object):
         print(data,end = ' ')
       print()
 
+  # Recursively handles transversal and returns array
   def print_level_wrap(self,aNode,level,array):
-    if (level == 1):
+    if (level == 0):
       array.append(aNode.data)
       return
     else:
@@ -221,16 +225,18 @@ class Tree (object):
       self.print_level_wrap(aNode.rChild,level-1,array)
       return
 
-
+  # Calls wrapping function for get height
   def get_height (self):
-    return self.get_height_wrap(self.root)
+    return (self.get_height_wrap(self.root)-1)
 
+  # Recursively analyzes the binary tree to find the max height
   def get_height_wrap(self,root):
     if (root == None):
       return 0
     else:
-      return (1 + max(self.get_height_wrap(root.lChild),self.get_height_wrap(root.rChild)))
+      return (1+max(self.get_height_wrap(root.lChild),self.get_height_wrap(root.rChild)))
 
+  # Counts the number of nodes in the right and left children of the root
   def num_nodes (self):
     current=self.root
     left=len(self.in_order(current.lChild,[]))
@@ -254,12 +260,12 @@ def main():
   print("Is_similar: ",tree1.is_similar(tree3))
 
   # print various levels
-  print ("Level 2 (tree1):", end = ' ')
-  tree1.print_level(2)
-  print ("Level 4 (tree1):", end = ' ')
-  tree1.print_level(4)
-  print ("Level 2 (tree3):", end = ' ')
-  tree3.print_level(2)
+  print ("Level 1 (tree1):", end = ' ')
+  tree1.print_level(1)
+  print ("Level 3 (tree1):", end = ' ')
+  tree1.print_level(3)
+  print ("Level 1 (tree3):", end = ' ')
+  tree3.print_level(1)
 
   # get the height of the two different trees
   print ("Height of tree1: ", tree1.get_height())
@@ -267,7 +273,9 @@ def main():
 
   # get the total number of nodes of binary search tree
   root,l_length,r_length=tree1.num_nodes()
-  print(root,l_length,r_length)
+  print("Tree 1 has", str(l_length+r_length), "nodes.")
+  root,l_length,r_length=tree3.num_nodes()
+  print("Tree 3 has", str(l_length+r_length), "nodes.")
 
 main()
   
