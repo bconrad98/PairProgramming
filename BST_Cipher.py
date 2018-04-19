@@ -16,7 +16,7 @@
 
 #  Date Created: 04/18/18
 
-#  Date Last Modified: 04/18/18
+#  Date Last Modified: 04/19/18
 
 class Node (object):
   def __init__ (self, letter):
@@ -36,7 +36,7 @@ class Tree (object):
   		letter = letter.lower()
   		if (letter == ' '):
   			self.insert(letter)
-  		if (letter <= 'a' or letter >= 'z'):
+  		if (letter < 'a' or letter > 'z'):
   			continue
   		self.insert(letter)
   	return
@@ -89,26 +89,51 @@ class Tree (object):
   # character in the binary search tree. It will return an empty string
   # if the input parameter does not lead to a valid character in the tree.
   def traverse (self, st):
+  	print(st)
   	if (st == '*'):
   		return self.root.letter
   	else:
   		current = self.root
   		for ch in st:
   			if (current == None):
-  				return
+  				return ''
   			if (ch == '<'):
   				current = current.lChild
   			else:
   				current = current.rChild
-  		return current.letter
+  		if(current==None):
+  			return ''
+  		else:
+  			return current.letter
 
   # the encrypt() function will take a string as input parameter, convert
   # it to lower case, and return the encrypted string. It will ignore
   # all digits, punctuation marks, and special characters.
   def encrypt (self, st):
-  	return
+  	array=st  
+  	encryption=''
+  	for i in range(len(array)-1):
+  		encryption+=self.search(array[i])+'!'
+  	encryption+=self.search(array[len(array)-1])
+  	return encryption
 
   # the decrypt() function will take a string as input parameter, and
-  # return the decrypted string.
+  # return the decrypted string
   def decrypt (self, st):
-  	return
+  	array=st.split('!')
+  	string=''
+  	for letter in array:
+  		string+=self.traverse(letter)
+  	return string
+
+def main():
+  key=input('Enter encryption key: ')
+  tree=Tree(str(key))
+  to_encrypt=input('\nEnter string to be encrypted: ')
+  print('Encrypted string: ', str(tree.encrypt(str(to_encrypt))))
+  to_decrypt=input('\nEnter string to be decrypted: ')
+  print('Decrypted string: ', str(tree.decrypt(to_decrypt)))
+  for i in range(97,123):
+  	print(chr(i), ":", tree.search(chr(i)))
+  print(' ', ":", tree.search(' '))
+main()
