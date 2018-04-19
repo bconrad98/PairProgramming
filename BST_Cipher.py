@@ -30,9 +30,8 @@ class Tree (object):
   # character other than the characters 'a' through 'z' or the
   # space character drop that character.
   def __init__ (self, encrypt_str):
-  	self.root = None
-  	encrypt_set = set(encrypt_str)
-  	for letter in encrypt_set:
+  	self.root = None 
+  	for letter in encrypt_str:
   		letter = letter.lower()
   		if (letter == ' '):
   			self.insert(letter)
@@ -56,8 +55,10 @@ class Tree (object):
   			parent = current
   			if (ch < current.letter):
   				current = current.lChild
-  			else:
+  			elif(ch > current.letter):
   				current = current.rChild
+  			else:
+  				return
   		if (ch < parent.letter):
   			parent.lChild = newNode
   		elif (ch == parent.letter):
@@ -89,7 +90,6 @@ class Tree (object):
   # character in the binary search tree. It will return an empty string
   # if the input parameter does not lead to a valid character in the tree.
   def traverse (self, st):
-  	print(st)
   	if (st == '*'):
   		return self.root.letter
   	else:
@@ -110,11 +110,10 @@ class Tree (object):
   # it to lower case, and return the encrypted string. It will ignore
   # all digits, punctuation marks, and special characters.
   def encrypt (self, st):
-  	array=st  
   	encryption=''
-  	for i in range(len(array)-1):
-  		encryption+=self.search(array[i])+'!'
-  	encryption+=self.search(array[len(array)-1])
+  	for i in range(len(st)-1):
+  		encryption+=self.search(st[i])+'!'
+  	encryption+=self.search(st[len(st)-1])
   	return encryption
 
   # the decrypt() function will take a string as input parameter, and
@@ -133,7 +132,7 @@ def main():
   print('Encrypted string: ', str(tree.encrypt(str(to_encrypt))))
   to_decrypt=input('\nEnter string to be decrypted: ')
   print('Decrypted string: ', str(tree.decrypt(to_decrypt)))
-  for i in range(97,123):
-  	print(chr(i), ":", tree.search(chr(i)))
-  print(' ', ":", tree.search(' '))
+  # for i in range(97,123):
+  # 	print(chr(i), ":", tree.search(chr(i)))
+  # print(' ', ":", tree.search(' '))
 main()
