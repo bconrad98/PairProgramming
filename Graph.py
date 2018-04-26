@@ -200,16 +200,26 @@ class Graph (object):
 
   # get a copy of the list of vertices
   def getVertices (self):
-  	return
+  	copy=[]
+  	for i in self.Vertices:
+  		copy.append(i)
+  	return copy
 
   # delete an edge from the adjacency matrix
   def deleteEdge (self, fromVertexLabel, toVertexLabel):
-  	return
+  	u=self.getIndex(fromVertexLabel)
+  	v=self.getIndex(toVertexLabel)
+  	self.adjMat[u][v]=0
 
   # delete a vertex from the vertex list and all edges from and
   # to it in the adjacency matrix
   def deleteVertex (self, vertexLabel):
-  	return
+  	vertex=self.getIndex(vertexLabel)
+  	for i in range(len(self.adjMat)):
+  		if (self.getEdgeWeight(vertex,i)!= -1):
+  			self.adjMat[vertex][i]=0
+  		if(self.getEdgeWeight(i,vertex)!= -1):
+  			self.adjMat[i][vertex]=0
 
 def main():
 	# create a Graph object
