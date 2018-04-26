@@ -180,22 +180,90 @@ class Graph (object):
   # get edge weight between two vertices
   # return -1 if edge does not exist
   def getEdgeWeight (self, fromVertexLabel, toVertexLabel):
+  	u=self.getIndex(fromVertexLabel)
+  	v=self.getIndex(toVertexLabel)
+  	if(u==-1 or v==-1 or self.adjMat[u][v]==0):
+  		return -1
+  	else:
+  		return self.adjMat[u][v]
 
   # get a list of immediate neighbors that you can go to from a vertex
   # return empty list if there are none
   def getNeighbors (self, vertexLabel):
+  	vertex=self.Vertices[self.getIndex(vertexLabel)]
+  	neighbor_list=[]
+  	u=self.getAdjUnvisitedVertex(vertex)
+  	while(u!=-1):
+  		neighbor_list.append(u)
+  		u=self.getAdjUnvisitedVertex(vertex)
+  	return neighbor_list
 
   # get a copy of the list of vertices
   def getVertices (self):
+  	return
 
   # delete an edge from the adjacency matrix
   def deleteEdge (self, fromVertexLabel, toVertexLabel):
+  	return
 
   # delete a vertex from the vertex list and all edges from and
   # to it in the adjacency matrix
   def deleteVertex (self, vertexLabel):
+  	return
 
 def main():
+	# create a Graph object
+  cities = Graph()
+
+  # open file for reading
+  inFile = open ("./graph.txt", "r")
+
+  # read the Vertices
+  numVertices = int ((inFile.readline()).strip())
+  print (numVertices)
+
+  for i in range (numVertices):
+    city = (inFile.readline()).strip()
+    print (city)
+    cities.addVertex (city)
+
+  # read the edges
+  numEdges = int ((inFile.readline()).strip())
+  print (numEdges)
+
+  for i in range (numEdges):
+    edge = (inFile.readline()).strip()
+    print (edge)
+    edge = edge.split()
+    start = int (edge[0])
+    finish = int (edge[1])
+    weight = int (edge[2])
+
+    cities.addDirectedEdge (start, finish, weight)
+
+  # print the adjacency matrix
+  print ("\nAdjacency Matric")
+  for i in range (numVertices):
+    for j in range (numVertices):
+      print (cities.adjMat[i][j], end = ' ')
+    print ()
+  print ()
+
+  # read the starting vertex for dfs and bfs
+  startVertex = (inFile.readline()).strip()
+  print (startVertex)
+  # close file
+  inFile.close()
+
+  # get the index of the start Vertex
+  startIndex = cities.getIndex (startVertex)
+  print (startIndex)
+
+  # do depth first search
+  print ("\nDepth First Search from " + startVertex)
+  cities.dfs (startIndex)
+  print()
+
   # test depth first search
 
   # test breadth first search
