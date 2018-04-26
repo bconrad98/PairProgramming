@@ -176,6 +176,10 @@ class Graph (object):
     	# if next unvisited vertex not found, dequeue and make that the vertex for next level
     	if (u == -1):
     		vertex = theQueue.dequeue()
+    # the queue is empty let us reset the flags
+    nVert = len (self.Vertices)
+    for i in range (nVert):
+      (self.Vertices[i]).visited = False
 
   # get edge weight between two vertices
   # return -1 if edge does not exist
@@ -262,8 +266,6 @@ def main():
   # read the starting vertex for dfs and bfs
   startVertex = (inFile.readline()).strip()
   print (startVertex)
-  # close file
-  inFile.close()
 
   # get the index of the start Vertex
   startIndex = cities.getIndex (startVertex)
@@ -274,12 +276,28 @@ def main():
   cities.dfs (startIndex)
   print()
 
-  # test depth first search
-
   # test breadth first search
+  print ("\nBreadth First Search from " + startVertex)
+  cities.bfs (startIndex)
+  print()
 
   # test deletion of an edge
+  # get two cities that edge is between
+  edge_cities = inFile.readline().strip().split(' ')
+  city1 = edge_cities[0]
+  city2 = edge_cities[1]
+  print("\nDeleting an edge from",city1,"to",city2)
+  cities.deleteEdge(city1,city2)
+  u = cities.getIndex(city1)
+  v = cities.getIndex(city2)
+  print("Value of adjMat at edge(should be zero):",cities.adjMat[u][v])
+  print()
 
   # test deletion of a vertex
+  # read the label
+  vertex = inFile.readline().strip()
+  print("\nDeleting this vertex:",vertex)
+  cities.deleteVertex(vertex)
+
 
 main()
