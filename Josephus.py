@@ -126,7 +126,7 @@ def main():
 		start = circular_list.delete_after(start,n)
 	
 	# Print list of soldiers killed in order
-	for i in range (1,len(kill_list)):
+	for i in range (0,len(kill_list)):
 		print(kill_list[i])
 	print(circular_list.first.data)
 	

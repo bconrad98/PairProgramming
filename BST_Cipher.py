@@ -132,7 +132,7 @@ def main():
   print('Encrypted string: ', str(tree.encrypt(str(to_encrypt))))
   to_decrypt=input('\nEnter string to be decrypted: ')
   print('Decrypted string: ', str(tree.decrypt(to_decrypt)))
-  # for i in range(97,123):
-  # 	print(chr(i), ":", tree.search(chr(i)))
-  # print(' ', ":", tree.search(' '))
+  #for i in range(97,123):
+   # print(chr(i), ":", tree.search(chr(i)))
+   # print(' ', ":", tree.search(' '))
 main()
