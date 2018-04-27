@@ -220,10 +220,10 @@ class Graph (object):
   def deleteVertex (self, vertexLabel):
   	vertex=self.getIndex(vertexLabel)
   	for i in range(len(self.adjMat)):
-  		if (self.getEdgeWeight(vertex,i)!= -1):
-  			self.adjMat[vertex][i]=0
-  		if(self.getEdgeWeight(i,vertex)!= -1):
-  			self.adjMat[i][vertex]=0
+  		del(self.adjMat[i][vertex])
+  	del(self.adjMat[vertex])
+  	del(self.Vertices[vertex])
+
 
 def main():
 	# create a Graph object
@@ -256,7 +256,7 @@ def main():
     cities.addDirectedEdge (start, finish, weight)
 
   # print the adjacency matrix
-  print ("\nAdjacency Matric")
+  print ("\nAdjacency Matrix")
   for i in range (numVertices):
     for j in range (numVertices):
       print (cities.adjMat[i][j], end = ' ')
@@ -290,7 +290,7 @@ def main():
   cities.deleteEdge(city1,city2)
   u = cities.getIndex(city1)
   v = cities.getIndex(city2)
-  print("Value of adjMat at edge(should be zero):",cities.adjMat[u][v])
+  print("Edge weight of this edge(-1 if does not exist):",cities.getEdgeWeight(u,v))
   print()
 
   # test deletion of a vertex
@@ -298,6 +298,13 @@ def main():
   vertex = inFile.readline().strip()
   print("\nDeleting this vertex:",vertex)
   cities.deleteVertex(vertex)
-
-
+  numVertices=len(cities.Vertices)
+  print ("\nFinal Adjacency Matrix")
+  for i in range (numVertices):
+    count=0
+    for j in range (numVertices):
+    	print (cities.adjMat[i][j], end = ' ')
+    #print(cities.Vertices[i], end= ' ')
+    print ()
+  print ()
 main()
