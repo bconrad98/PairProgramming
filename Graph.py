@@ -299,6 +299,11 @@ def main():
   print("\nDeleting this vertex:",vertex)
   cities.deleteVertex(vertex)
   numVertices=len(cities.Vertices)
+  print ("\nFinal List of Vertices")
+  for vertex in cities.Vertices:
+    print(vertex)
+  print()
+
   print ("\nFinal Adjacency Matrix")
   for i in range (numVertices):
     count=0
@@ -307,5 +312,5 @@ def main():
     #print(cities.Vertices[i], end= ' ')
     print ()
   print ()
-if __name__ ="__main__":
+if __name__ =="__main__":
   main()
