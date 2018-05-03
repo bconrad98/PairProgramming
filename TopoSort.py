@@ -42,6 +42,17 @@ class Stack (object):
   def size (self):
     return (len(self.stack))
 
+  def is_inside(self,label):
+    labels = []
+    while (not self.isEmpty()):
+      labels.append(self.pop())
+    labels.reverse()
+    for val in labels:
+      self.push(val)
+    if (label in labels):
+      return True
+    return False
+
 class Queue (object):
   def __init__ (self):
     self.queue = []
@@ -129,6 +140,17 @@ class Graph (object):
         return i
     return -1
 
+  def modAdjUnvisitedVertex (self, stack):
+    nVert = len(self.Vertices)
+    v = stack.peek()
+    for i in range (nVert):
+      if (self.adjMat[v][i] > 0 and (self.Vertices[i]).wasVisited()):
+        if (stack.is_inside(i)):
+          return -2
+      if (self.adjMat[v][i] > 0) and (not (self.Vertices[i]).wasVisited()):
+        return i
+    return -1
+
   # do the depth first search in a graph
   def dfs (self, v):
     # create a Stack
@@ -149,7 +171,7 @@ class Graph (object):
         (self.Vertices[u]).visited = True
         print (self.Vertices[u])
         theStack.push(u)
-    # the stack is empty let us reset the falgs
+    # the stack is empty let us reset the flags
     nVert = len (self.Vertices)
     for i in range (nVert):
       (self.Vertices[i]).visited = False
@@ -183,7 +205,36 @@ class Graph (object):
 
   # determine if a directed graph has a cycle
   def hasCycle (self):
-    return
+    # boolean for has cycle
+    has_cycle = False
+    # create a Stack
+    theStack = Stack()
+    # start at first vertex
+    v = 0
+
+    # mark vertex v as visited and push on the stack
+    (self.Vertices[v]).visited = True
+    print (self.Vertices [v])
+    theStack.push (v)
+
+    # vist other vertices according to depth
+    while (not theStack.isEmpty()):
+      # get an adjacent unvisited vertex
+      u = self.modAdjUnvisitedVertex (theStack)
+      if (u == -1): 
+        u = theStack.pop()
+      elif (u == -2):
+        has_cycle = True
+        break
+      else:
+        (self.Vertices[u]).visited = True
+        print (self.Vertices[u])
+        theStack.push(u)
+    # the stack is empty let us reset the flags
+    nVert = len (self.Vertices)
+    for i in range (nVert):
+      (self.Vertices[i]).visited = False
+    return has_cycle
 
   # return a list of vertices after a topological sort
   def toposort (self):
@@ -228,6 +279,9 @@ def main():
       print (graph.adjMat[i][j], end = ' ')
     print ()
   print ()
+
+  # test if it has a cycle
+  print (graph.hasCycle())
 
 main()
 
