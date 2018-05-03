@@ -1,3 +1,23 @@
+#  File: TopoSort.py
+
+#  Description: Runs a topological sort
+
+#  Student's Name: Matthew Frangos
+
+#  Student's UT EID: msf955
+
+#  Partner's Name: Braeden Conrad
+
+#  Partner's UT EID: bsc875
+
+#  Course Name: CS 313E 
+
+#  Unique Number: 51335
+
+#  Date Created: 5/3/2018
+
+#  Date Last Modified: 5/3/2018
+
 class Stack (object):
   def __init__ (self):
     self.stack = []
@@ -167,6 +187,9 @@ class Graph (object):
 
   # return a list of vertices after a topological sort
   def toposort (self):
+  	copy=Graph()
+  	copy.Vertices=self.Vertices
+  	copy.adjMat=self.adjMat
     return      
 
 def main():
