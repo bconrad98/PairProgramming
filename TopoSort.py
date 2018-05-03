@@ -138,22 +138,44 @@ class Graph (object):
   def bfs (self, v):
     # create a Queue
     theQueue = Queue ()
+    # add the vertex to the Queue
+    theQueue.enqueue(v)
+    # mark the vertex as visited
+    (self.Vertices[v]).visited = True
+    print (self.Vertices[v])
+    # set vertex as start
+    vertex = v
+    while (not theQueue.isEmpty()):
+      # get the next univisited vertex until none left
+      u = self.getAdjUnvisitedVertex(vertex)
+      while (u != -1):
+        (self.Vertices[u]).visited = True
+        print (self.Vertices[u])
+        theQueue.enqueue(u)
+        u = self.getAdjUnvisitedVertex(vertex)
+      # if next unvisited vertex not found, dequeue and make that the vertex for next level
+      if (u == -1):
+        vertex = theQueue.dequeue()
+    # the queue is empty let us reset the flags
+    nVert = len (self.Vertices)
+    for i in range (nVert):
+      (self.Vertices[i]).visited = False
 
 def main():
   # create a Graph object
-  cities = Graph()
+  graph = Graph()
 
   # open file for reading
-  inFile = open ("./graph.txt", "r")
+  inFile = open ("./topo.txt", "r")
 
   # read the Vertices
   numVertices = int ((inFile.readline()).strip())
   print (numVertices)
 
   for i in range (numVertices):
-    city = (inFile.readline()).strip()
-    print (city)
-    cities.addVertex (city)
+    letter = (inFile.readline()).strip()
+    print (letter)
+    graph.addVertex (letter)
 
   # read the edges
   numEdges = int ((inFile.readline()).strip())
@@ -163,34 +185,18 @@ def main():
     edge = (inFile.readline()).strip()
     print (edge)
     edge = edge.split()
-    start = int (edge[0])
-    finish = int (edge[1])
-    weight = int (edge[2])
+    start = graph.getIndex(edge[0])
+    finish = graph.getIndex(edge[1])
 
-    cities.addDirectedEdge (start, finish, weight)
+    graph.addDirectedEdge (start, finish)
 
   # print the adjacency matrix
   print ("\nAdjacency Matric")
   for i in range (numVertices):
     for j in range (numVertices):
-      print (cities.adjMat[i][j], end = ' ')
+      print (graph.adjMat[i][j], end = ' ')
     print ()
   print ()
 
-  # read the starting vertex for dfs and bfs
-  startVertex = (inFile.readline()).strip()
-  print (startVertex)
-  # close file
-  inFile.close()
-
-  # get the index of the start Vertex
-  startIndex = cities.getIndex (startVertex)
-  print (startIndex)
-
-  # do depth first search
-  print ("\nDepth First Search from " + startVertex)
-  cities.dfs (startIndex)
-  print()
-   
 main()
 
