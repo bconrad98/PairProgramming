@@ -161,6 +161,14 @@ class Graph (object):
     for i in range (nVert):
       (self.Vertices[i]).visited = False
 
+  # determine if a directed graph has a cycle
+  def hasCycle (self):
+    return
+
+  # return a list of vertices after a topological sort
+  def toposort (self):
+    return      
+
 def main():
   # create a Graph object
   graph = Graph()
@@ -191,7 +199,7 @@ def main():
     graph.addDirectedEdge (start, finish)
 
   # print the adjacency matrix
-  print ("\nAdjacency Matric")
+  print ("\nAdjacency Matrix")
   for i in range (numVertices):
     for j in range (numVertices):
       print (graph.adjMat[i][j], end = ' ')
