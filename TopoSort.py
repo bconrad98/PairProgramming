@@ -219,7 +219,6 @@ class Graph (object):
 
       # mark vertex v as visited and push on the stack
       (self.Vertices[v]).visited = True
-      print (self.Vertices [v])
       theStack.push (v)
 
       # vist other vertices according to depth
@@ -235,13 +234,11 @@ class Graph (object):
           return True
         else:
           (self.Vertices[u]).visited = True
-          print (self.Vertices[u])
           theStack.push(u)
       # the stack is empty let us reset the flags
       nVert = len (self.Vertices)
       for i in range (nVert):
         (self.Vertices[i]).visited = False
-      print()
     return False
 
   # return a list of vertices after a topological sort
