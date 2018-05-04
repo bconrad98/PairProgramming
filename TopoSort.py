@@ -151,6 +151,13 @@ class Graph (object):
         return i
     return -1
 
+  def deleteVertex (self, vertexLabel):
+    vertex=self.getIndex(vertexLabel)
+    for i in range(len(self.adjMat)):
+      del(self.adjMat[i][vertex])
+    del(self.adjMat[vertex])
+    del(self.Vertices[vertex])
+
   # do the depth first search in a graph
   def dfs (self, v):
     # create a Stack
@@ -242,7 +249,28 @@ class Graph (object):
   	copy=Graph()
   	copy.Vertices=self.Vertices
   	copy.adjMat=self.adjMat
-    return      
+  	topo_visit=[]
+  	delete_list=[]
+  	idx=0
+  	while(len(copy.Vertices)>0):
+  		idx=0
+	  	while(idx<len(copy.Vertices)):
+	  		has_visit=False
+	  		vertex=copy.Vertices[idx].label
+	  		for i in range(len(copy.Vertices)):
+	  			if(copy.adjMat[i][idx]==1):
+	  				has_visit=True
+	  				break
+	  		if(has_visit):
+	  			idx+=1
+	  		else:
+	  			topo_visit.append(vertex)
+	  			delete_list.append(vertex)
+	  			idx+=1
+	  	while(len(delete_list)>0):
+	  		copy.deleteVertex(delete_list[0])
+	  		delete_list.pop(0)
+  	return topo_visit   
 
 def main():
   # create a Graph object
@@ -282,7 +310,9 @@ def main():
   print ()
 
   # test if it has a cycle
-  print (graph.hasCycle())
+  print ('Cycle Present:', graph.hasCycle())
+  print ('Topological Sort:')
+  print(graph.toposort())
 
 main()
 
