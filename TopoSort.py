@@ -185,36 +185,37 @@ class Graph (object):
 
   # determine if a directed graph has a cycle
   def hasCycle (self):
-    # boolean for has cycle
-    has_cycle = False
-    # create a Stack
-    theStack = Stack()
-    # start at first vertex
-    v = 0
+    for vertex in self.Vertices:
+      v = self.getIndex(vertex)
+      
+      # create a Stack
+      theStack = Stack()
 
-    # mark vertex v as visited and push on the stack
-    (self.Vertices[v]).visited = True
-    print (self.Vertices [v])
-    theStack.push (v)
+      # mark vertex v as visited and push on the stack
+      (self.Vertices[v]).visited = True
+      print (self.Vertices [v])
+      theStack.push (v)
 
-    # vist other vertices according to depth
-    while (not theStack.isEmpty()):
-      # get an adjacent unvisited vertex
-      u = self.modAdjUnvisitedVertex (theStack)
-      if (u == -1): 
-        u = theStack.pop()
-      elif (u == -2):
-        has_cycle = True
-        break
-      else:
-        (self.Vertices[u]).visited = True
-        print (self.Vertices[u])
-        theStack.push(u)
-    # the stack is empty let us reset the flags
-    nVert = len (self.Vertices)
-    for i in range (nVert):
-      (self.Vertices[i]).visited = False
-    return has_cycle
+      # vist other vertices according to depth
+      while (not theStack.isEmpty()):
+        # get an adjacent unvisited vertex
+        u = self.modAdjUnvisitedVertex (theStack)
+        if (u == -1): 
+          u = theStack.pop()
+        elif (u == -2):
+          nVert = len (self.Vertices)
+          for i in range (nVert):
+            (self.Vertices[i]).visited = False
+          return True
+        else:
+          (self.Vertices[u]).visited = True
+          print (self.Vertices[u])
+          theStack.push(u)
+      # the stack is empty let us reset the flags
+      nVert = len (self.Vertices)
+      for i in range (nVert):
+        (self.Vertices[i]).visited = False
+    return False
 
   # return a list of vertices after a topological sort
   def toposort (self):
