@@ -278,36 +278,26 @@ def main():
 
   # read the Vertices
   numVertices = int ((inFile.readline()).strip())
-  print (numVertices)
 
   for i in range (numVertices):
     letter = (inFile.readline()).strip()
-    print (letter)
     graph.addVertex (letter)
 
   # read the edges
   numEdges = int ((inFile.readline()).strip())
-  print (numEdges)
 
   for i in range (numEdges):
     edge = (inFile.readline()).strip()
-    print (edge)
     edge = edge.split()
     start = graph.getIndex(edge[0])
     finish = graph.getIndex(edge[1])
 
     graph.addDirectedEdge (start, finish)
 
-  # print the adjacency matrix
-  print ("\nAdjacency Matrix")
-  for i in range (numVertices):
-    for j in range (numVertices):
-      print (graph.adjMat[i][j], end = ' ')
-    print ()
-  print ()
-
   # test if it has a cycle
   print ('Cycle Present:', graph.hasCycle())
+
+  # test topological sort
   print ('Topological Sort:')
   print(graph.toposort())
 
