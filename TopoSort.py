@@ -212,9 +212,8 @@ class Graph (object):
 
   # determine if a directed graph has a cycle
   def hasCycle (self):
-    for vertex in self.Vertices:
-      v = self.getIndex(vertex)
-      
+    nVert = len(self.Vertices)
+    for v in range(nVert):
       # create a Stack
       theStack = Stack()
 
@@ -242,6 +241,7 @@ class Graph (object):
       nVert = len (self.Vertices)
       for i in range (nVert):
         (self.Vertices[i]).visited = False
+      print()
     return False
 
   # return a list of vertices after a topological sort
