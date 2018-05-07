@@ -200,13 +200,13 @@ class Tree (object):
 
   # Calls the wrapper function in order to print the level of the tree
   def print_level (self, level):
-    if (level > self.get_height()):
+    if (level > self.get_height()+1):
       return
     level_elements = []
     if (self.root == None):
       print()
       return
-    elif (level == 0):
+    elif (level == 1):
       level_elements.append(self.root.data)
       print(level_elements[0])
     else:
@@ -217,12 +217,14 @@ class Tree (object):
 
   # Recursively handles transversal and returns array
   def print_level_wrap(self,aNode,level,array):
-    if (level == 0):
-      array.append(aNode.data)
+    if (level == 1):
+      if (aNode != None):
+        array.append(aNode.data)
       return
     else:
-      self.print_level_wrap(aNode.lChild,level-1,array)
-      self.print_level_wrap(aNode.rChild,level-1,array)
+      if (aNode != None):
+        self.print_level_wrap(aNode.lChild,level-1,array)
+        self.print_level_wrap(aNode.rChild,level-1,array)
       return
 
   # Calls wrapping function for get height
@@ -279,9 +281,11 @@ def main():
 
   # get the total number of nodes of binary search tree
   root,l_length,r_length=tree1.num_nodes()
-  print("Tree 1 has", str(l_length+r_length), "nodes.")
+  print("Tree 1 has", str(l_length+r_length+1), "nodes.")
+  root,l_length,r_length=tree2.num_nodes()
+  print("Tree 2 has", str(l_length+r_length+1), "nodes.")
   root,l_length,r_length=tree3.num_nodes()
-  print("Tree 3 has", str(l_length+r_length), "nodes.")
+  print("Tree 3 has", str(l_length+r_length+1), "nodes.")
 
 main()
   
