@@ -131,12 +131,13 @@ class Graph (object):
 
   # do the depth first search in a graph
   def dfs (self, v):
+    return_list = []
     # create a Stack
     theStack = Stack()
 
     # mark vertex v as visited and push on the stack
     (self.Vertices[v]).visited = True
-    print (self.Vertices [v])
+    return_list.append((self.Vertices [v]))
     theStack.push (v)
 
     # vist other vertices according to depth
@@ -147,22 +148,24 @@ class Graph (object):
         u = theStack.pop()
       else:
         (self.Vertices[u]).visited = True
-        print (self.Vertices[u])
+        return_list.append((self.Vertices[u]))
         theStack.push(u)
     # the stack is empty let us reset the flags
     nVert = len (self.Vertices)
     for i in range (nVert):
       (self.Vertices[i]).visited = False
+    return return_list
 
   # do breadth first search in a graph
   def bfs (self, v):
+    return_list = []
     # create a Queue
     theQueue = Queue ()
     # add the vertex to the Queue
     theQueue.enqueue(v)
     # mark the vertex as visited
     (self.Vertices[v]).visited = True
-    print (self.Vertices[v])
+    return_list.append(self.Vertices[v])
     # set vertex as start
     vertex = v
     while (not theQueue.isEmpty()):
@@ -170,7 +173,7 @@ class Graph (object):
     	u = self.getAdjUnvisitedVertex(vertex)
     	while (u != -1):
     		(self.Vertices[u]).visited = True
-    		print (self.Vertices[u])
+    		return_list.append(self.Vertices[u])
     		theQueue.enqueue(u)
     		u = self.getAdjUnvisitedVertex(vertex)
     	# if next unvisited vertex not found, dequeue and make that the vertex for next level
@@ -180,6 +183,7 @@ class Graph (object):
     nVert = len (self.Vertices)
     for i in range (nVert):
       (self.Vertices[i]).visited = False
+    return return_list
 
   # get edge weight between two vertices
   # return -1 if edge does not exist
@@ -273,13 +277,15 @@ def main():
 
   # do depth first search
   print ("\nDepth First Search from " + startVertex)
-  cities.dfs (startIndex)
-  print()
+  dfs_list = cities.dfs (startIndex)
+  for city in dfs_list:
+    print(city)
 
   # test breadth first search
   print ("\nBreadth First Search from " + startVertex)
-  cities.bfs (startIndex)
-  print()
+  bfs_list = cities.bfs (startIndex)
+  for city in bfs_list:
+    print(city)
 
   # test deletion of an edge
   # get two cities that edge is between
