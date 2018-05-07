@@ -245,30 +245,36 @@ class Tree (object):
 
 def main():
   # create three trees
-  elements = [50,30,70,10,40,60,80,7,25,38,47,58,65,77,96]
-  elements2 = [50,30,70,10,40,44,62,80,7,25,99,38,47,1,27,58,65,77,96]
+  elements = [14]
+  elements2 =  [78, 100, 77, 46, 31, 77, 97, 64, 69, 75]
+  elements3 =  [94, 50, 64, 87, 99, 84, 54, 93, 80, 76, 90, 60, 95, 17, 38, 72, 15, 
+50, 55, 34, 15, 22, 100, 26, 36, 40, 28, 83, 11, 63, 17, 52, 67, 73, 52, 78, 45, 
+94, 30, 40, 8, 95, 25, 37, 23, 4, 73, 86, 49, 29, 8, 45, 95, 70, 30, 15, 70, 35, 
+58, 87, 67, 7, 40, 9, 87, 58, 64, 81, 83, 45, 80, 81, 55, 10, 39, 27, 24, 21, 62, 
+16, 89, 26, 57, 13, 73, 5, 54, 52, 36, 60, 15, 27, 80, 80, 30, 97, 33, 13, 5, 29]
   tree1=Tree()
   tree2=Tree()
   tree3=Tree()
   for i in elements:
     tree1.insert(i)
-    tree2.insert(i)
   for i in elements2:
+    tree2.insert(i)
+  for i in elements3:
     tree3.insert(i)
   # testing is_similar
   print("Is_similar: ",tree1.is_similar(tree2))
-  print("Is_similar: ",tree1.is_similar(tree3))
 
   # print various levels
   print ("Level 1 (tree1):", end = ' ')
   tree1.print_level(1)
-  print ("Level 3 (tree1):", end = ' ')
-  tree1.print_level(3)
-  print ("Level 1 (tree3):", end = ' ')
-  tree3.print_level(1)
+  print ("Level 3 (tree2):", end = ' ')
+  tree2.print_level(3)
+  print ("Level 5 (tree3):", end = ' ')
+  tree3.print_level(5)
 
   # get the height of the two different trees
   print ("Height of tree1: ", tree1.get_height())
+  print ("Height of tree2: ", tree2.get_height())
   print ("Height of tree3: ", tree3.get_height())
 
   # get the total number of nodes of binary search tree
