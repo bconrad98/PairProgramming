@@ -198,7 +198,7 @@ class Graph (object):
   # get a list of immediate neighbors that you can go to from a vertex
   # return empty list if there are none
   def getNeighbors (self, vertexLabel):
-  	vertex=self.Vertices[self.getIndex(vertexLabel)]
+  	vertex=self.getIndex(vertexLabel)
   	neighbor_list=[]
   	u=self.getAdjUnvisitedVertex(vertex)
   	while(u!=-1):
